@@ -1,0 +1,45 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clientes</title>
+</head>
+<body>
+    <h1>Clientes</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido1</th>
+            <th>Apellido1</th>
+            <th>Ciudad</th>
+            <th>Categoría</th>
+            <th>
+                <form th:action="@{/clientes/crear}">
+                    <input type="submit" value="Crear">
+                </form>
+            </th>
+        </tr>
+        <tr th:each="cliente:${listaClientes}">
+            <td th:text="${cliente.id}">0</td>
+            <td th:text="${cliente.nombre}">nombre</td>
+            <td th:text="${cliente.apellido1}">apellido1</td>
+            <td th:text="${cliente.apellido2 ?: '&nbsp;'}">apellido2</td>
+            <td th:text="${cliente.ciudad}">ciudad</td>
+            <td th:text="${cliente.categoria}">categoría</td>
+
+            <td style="float: none;width: auto;overflow: hidden;">
+                <form th:action="@{/clientes/__${cliente.id}__}" style="display: inline;">
+                    <input type="submit" value="Ver Detalle" />
+                </form>
+                <form th:action="@{/clientes/editar/}+${cliente.id} " style="display: inline;">
+                    <input type="submit" value="Editar" />
+                </form>
+                <form th:action="@{/clientes/borrar/__${cliente.id}__}" method="post" style="display: inline;">
+                    <input type="submit" value="Eliminar" />
+                </form>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
