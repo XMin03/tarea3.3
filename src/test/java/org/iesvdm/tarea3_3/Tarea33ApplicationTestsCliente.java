@@ -1,21 +1,23 @@
 package org.iesvdm.tarea3_3;
 
 import org.iesvdm.tarea3_3.dao.ClienteDAOImpl;
+import org.iesvdm.tarea3_3.dao.ComercialDAOImpl;
 import org.iesvdm.tarea3_3.model.Cliente;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
-
 @SpringBootTest
-class ProyectoVentasApplicationTests {
+class Tarea33ApplicationTestsCliente {
     @Autowired
     private ClienteDAOImpl clienteDAOImpl;
+    @Autowired
+    private ComercialDAOImpl comercialDAOimpl;
+
     @Test
     void test_recargar_id_auto_increment_por_ps() {
         Cliente cliente = new Cliente(0

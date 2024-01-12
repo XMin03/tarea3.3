@@ -26,11 +26,14 @@ public class ClienteController {
     }
     @GetMapping("/clientes/{id}")
     public String detalle(Model model,@PathVariable int id){
+        //obtiene el cliente
         Optional<Cliente> c=clienteService.find(id);
         if (c.isPresent()){
+            //y hace los mismo que listar pero con solo ese cliente
             model.addAttribute("listaClientes", c.get());
             return "clientes";
         } else {
+            //si no encuentra vuelve a la pagina principal
             return listar(model);
         }
     }
