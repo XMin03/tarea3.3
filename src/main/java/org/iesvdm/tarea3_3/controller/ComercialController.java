@@ -1,5 +1,6 @@
 package org.iesvdm.tarea3_3.controller;
 
+import org.iesvdm.tarea3_3.model.Cliente;
 import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.service.ComercialService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,16 @@ public class ComercialController {
         model.addAttribute("listaComerciales", listaComercialas);
         return "comerciales";
     }
-
+    @GetMapping("/comerciales/{id}")
+    public String detalle(Model model,@PathVariable int id){
+        Optional<Comercial> c=comercialService.find(id);
+        if (c.isPresent()){
+            model.addAttribute("listaComerciales", c.get());
+            return "comerciales";
+        } else {
+            return listar(model);
+        }
+    }
 
     @GetMapping("/comerciales/crear")
     public String crear(Model model) {

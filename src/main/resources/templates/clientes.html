@@ -30,6 +30,9 @@
             <td th:text="${cliente.categoria}">categoría</td>
 
             <td>
+                <form th:action="@{/clientes/__${cliente.id}__}" style="display: inline;">
+                    <input type="submit" value="Ver Detalle" />
+                </form>
                 <form th:action="@{/clientes/editar/}+${cliente.id}" style="display: inline;">
                     <input type="submit" value="Editar" />
                 </form>

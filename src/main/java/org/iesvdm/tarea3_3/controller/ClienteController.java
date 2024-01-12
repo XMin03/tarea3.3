@@ -24,8 +24,16 @@ public class ClienteController {
         model.addAttribute("listaClientes", listaClientes);
         return "clientes";
     }
-
-
+    @GetMapping("/clientes/{id}")
+    public String detalle(Model model,@PathVariable int id){
+        Optional<Cliente> c=clienteService.find(id);
+        if (c.isPresent()){
+            model.addAttribute("listaClientes", c.get());
+            return "clientes";
+        } else {
+            return listar(model);
+        }
+    }
 
     @GetMapping("/clientes/crear")
     public String crear(Model model) {

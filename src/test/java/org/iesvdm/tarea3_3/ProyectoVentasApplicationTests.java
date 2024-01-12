@@ -27,8 +27,6 @@ class ProyectoVentasApplicationTests {
         this.clienteDAOImpl.create_CON_RECARGA_DE_ID_POR_PS(cliente);
         Assertions.assertTrue(cliente.getId()>0);
         System.out.println("ID AUTO_INCREMENT:" + cliente.getId());
-
-
     }
     @Test
     void test_recargar_id_auto_increment_por_simplejdbcinsert() {

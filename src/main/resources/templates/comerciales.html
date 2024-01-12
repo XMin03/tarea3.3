@@ -28,6 +28,9 @@
         <td th:text="${comercial.comision}">comision</td>
 
         <td>
+            <form th:action="@{/comerciales/__${comercial.id}__}" style="display: inline;">
+                <input type="submit" value="Ver Detalle" />
+            </form>
             <form th:action="@{/comerciales/editar/}+${comercial.id}" style="display: inline;">
                 <input type="submit" value="Editar" />
             </form>
