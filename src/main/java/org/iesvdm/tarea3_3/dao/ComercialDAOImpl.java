@@ -48,13 +48,14 @@ public class ComercialDAOImpl implements ComercialDAO{
 
     @Override
     public Optional<Comercial> find(int id) {
-        Comercial c=jdbcTemplate.queryForObject("select * from comercial where id=?",((rs, rowNum) -> new Comercial(
-                rs.getInt("id"),
-                rs.getString("nombre"),
-                rs.getString("apellido1"),
-                rs.getString("apellido2"),
-                rs.getFloat("comisión")
-                )));
+        Comercial c=jdbcTemplate.queryForObject("Select * from comercial where id=?",
+                ((rs, rowNum) -> new Comercial(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getString("apellido1"),
+                    rs.getString("apellido2"),
+                    rs.getFloat("comisión")
+                )),id);
         return (c==null)?Optional.empty():Optional.of(c);
     }
 

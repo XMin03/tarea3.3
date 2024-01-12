@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/estilo.css}">
     <title>Clientes</title>
 </head>
 <body>
@@ -28,11 +29,8 @@
             <td th:text="${cliente.ciudad}">ciudad</td>
             <td th:text="${cliente.categoria}">categoría</td>
 
-            <td style="float: none;width: auto;overflow: hidden;">
-                <form th:action="@{/clientes/__${cliente.id}__}" style="display: inline;">
-                    <input type="submit" value="Ver Detalle" />
-                </form>
-                <form th:action="@{/clientes/editar/}+${cliente.id} " style="display: inline;">
+            <td>
+                <form th:action="@{/clientes/editar/}+${cliente.id}" style="display: inline;">
                     <input type="submit" value="Editar" />
                 </form>
                 <form th:action="@{/clientes/borrar/__${cliente.id}__}" method="post" style="display: inline;">

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/estilo.css}">
+    <title>Comerciales</title>
+</head>
+<body>
+<h1>Comercial</h1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido1</th>
+        <th>Apellido1</th>
+        <th>Comisión</th>
+        <th>
+            <form th:action="@{/comerciales/crear}">
+                <input type="submit" value="Crear">
+            </form>
+        </th>
+    </tr>
+    <tr th:each="comercial:${listaComerciales}">
+        <td th:text="${comercial.id}">0</td>
+        <td th:text="${comercial.nombre}">nombre</td>
+        <td th:text="${comercial.apellido1}">apellido1</td>
+        <td th:text="${comercial.apellido2 ?: '&nbsp;'}">apellido2</td>
+        <td th:text="${comercial.comision}">comision</td>
+
+        <td>
+            <form th:action="@{/comerciales/editar/}+${comercial.id}" style="display: inline;">
+                <input type="submit" value="Editar" />
+            </form>
+            <form th:action="@{/comerciales/borrar/__${comercial.id}__}" method="post" style="display: inline;">
+                <input type="submit" value="Eliminar" />
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

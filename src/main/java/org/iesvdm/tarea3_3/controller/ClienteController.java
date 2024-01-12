@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ClienteController {
@@ -29,8 +30,9 @@ public class ClienteController {
     @GetMapping("/clientes/crear")
     public String crear(Model model) {
         Cliente c = new Cliente();
+        model.addAttribute("action", "crear");
         model.addAttribute("cliente", c);
-        return "formCrearCliente";
+        return "formCliente";
     }
     @PostMapping("/clientes/crear")
     public RedirectView submitCrear(@ModelAttribute Cliente c) {
@@ -39,6 +41,22 @@ public class ClienteController {
     }
 
 
+    @GetMapping("/clientes/editar/{id}")
+    public String editar(Model model, @PathVariable int id){
+        Optional<Cliente> c=clienteService.find(id);
+        if (c.isPresent()){
+            model.addAttribute("action", "editar");
+            model.addAttribute("cliente", c.get());
+            return "formCliente";
+        } else {
+            return listar(model);
+        }
+    }
+    @PostMapping("/clientes/editar")
+    public RedirectView submitEditar(Model model, @ModelAttribute Cliente c){
+        clienteService.update(c);
+        return new RedirectView("/clientes");
+    }
 
     @PostMapping("/clientes/borrar/{id}")
     public RedirectView borrar(Model model, @PathVariable int id){
@@ -46,25 +64,12 @@ public class ClienteController {
         return new RedirectView("/clientes");
     }
 
-
-
-
+    /*
     @PostMapping("/clientes/buscar")
     public String find(Model model){
         List<Cliente> listaClientes =  clienteService.listAll();
         model.addAttribute("listaClientes", listaClientes);
         return "clientes";
     }
-
-
-
-
-    @PostMapping("/clientes/actualizar/")
-    public String actualizar(Model model){
-        List<Cliente> listaClientes =  clienteService.listAll();
-        model.addAttribute("listaClientes", listaClientes);
-        return "clientes";
-    }
-
-
+    */
 }

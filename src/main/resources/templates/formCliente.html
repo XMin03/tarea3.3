@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/form.css}">
+    <title>Cliente</title>
+</head>
+<body>
+<h1 th:text="${#strings.capitalize(action)} +' Cliente'">Title</h1>
+
+<form th:action="@{/clientes/__${action}__}" th:method="post" th:object="${cliente}">
+    <input th:type="hidden" th:value="*{id}" th:field="*{id}" required/>
+    <label>Nombre*: </label><input th:type="text" th:value="*{nombre}" th:field="*{nombre}" required/>
+    <label>Apellido1*: </label><input th:type="text" th:value="*{apellido1}" th:field="*{apellido1}" required/>
+    <label>Apellido2: </label><input th:type="text" th:value="*{apellido2}" th:field="*{apellido2}"/>
+    <label>Ciudad*: </label><input th:type="text" th:value="*{ciudad}" th:field="*{ciudad}" required/>
+    <label>Categoría*: </label><input th:type="number" th:min="0" th:value="*{categoria}" th:field="*{categoria}" required/>
+    <input type="submit" value="Aceptar">
+</form>
+</body>
+</html>

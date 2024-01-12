@@ -11,4 +11,8 @@ public class Comercial {
     String apellido1;
     String apellido2;
     float comision;
+
+    public Comercial() {
+
+    }
 }
