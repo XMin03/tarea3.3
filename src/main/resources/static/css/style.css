@@ -1,0 +1,32 @@
+* {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1 {
+  padding: 30px;
+}
+
+table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+table tr th, table tr td {
+  padding: 20px;
+}
+table tr th input[type=submit], table tr td input[type=submit] {
+  border-radius: 50px;
+  padding: 10px;
+  background-color: aqua;
+}
+table tr th input[type=submit]:hover, table tr td input[type=submit]:hover {
+  background-color: aquamarine;
+}
+table tr:nth-child(odd) {
+  background-color: beige;
+}
+
+/*# sourceMappingURL=style.css.map */

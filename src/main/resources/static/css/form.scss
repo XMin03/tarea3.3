@@ -1,0 +1,31 @@
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+body{
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  label{
+    margin-top: 10px;
+  }
+  input{
+    border-bottom: black 1px solid;
+    margin-bottom: 5px;
+    &[type="submit"]{
+      padding: 10px;
+      border: black 1px solid;
+      &:hover{
+        background-color: beige;
+      }
+    }
+  }
+}
