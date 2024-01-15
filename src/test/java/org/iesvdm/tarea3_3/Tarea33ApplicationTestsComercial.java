@@ -1,6 +1,5 @@
 package org.iesvdm.tarea3_3;
 
-import org.iesvdm.tarea3_3.model.ComercialDAOImpl;
 import org.iesvdm.tarea3_3.dao.ComercialDAOImpl;
 import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Comercial;
