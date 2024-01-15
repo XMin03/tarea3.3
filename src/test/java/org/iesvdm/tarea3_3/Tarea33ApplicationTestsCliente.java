@@ -15,9 +15,6 @@ import java.util.Optional;
 class Tarea33ApplicationTestsCliente {
     @Autowired
     private ClienteDAOImpl clienteDAOImpl;
-    @Autowired
-    private ComercialDAOImpl comercialDAOimpl;
-
     @Test
     void test_recargar_id_auto_increment_por_ps() {
         Cliente cliente = new Cliente(0
