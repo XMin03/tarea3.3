@@ -38,8 +38,8 @@
         </td>
     </tr>
 </table>
-<h1>Comercial</h1>
-<table th:if="${listapedido}">
+<table th:if="${listaPedido}">
+    <h1>Pedidos</h1>
     <tr>
         <th>ID</th>
         <th>Total</th>
@@ -47,7 +47,7 @@
         <th>Id_cliente</th>
         <th>Id_comercial</th>
         <th>
-            <form th:action="@{/comerciales/pedido/crear}">
+            <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/crear}">
                 <input type="submit" value="Crear">
             </form>
         </th>
@@ -60,10 +60,10 @@
         <td th:text="${pedido.id_comercial}">id_comercial</td>
 
         <td>
-            <form th:action="@{/comerciales/pedido/editar/}+${pedido.id}" style="display: inline;">
+            <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/editar/}+${pedido.id}" style="display: inline;">
                 <input type="submit" value="Editar" />
             </form>
-            <form th:action="@{/comerciales/pedido/borrar/__${pedido.id}__}" method="post" style="display: inline;">
+            <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;">
                 <input type="submit" value="Eliminar" />
             </form>
         </td>

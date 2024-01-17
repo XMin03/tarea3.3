@@ -17,7 +17,7 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Repository
-public class ClienteDAOImpl implements ClienteDAO{
+public class ClienteDAOImpl implements DAO<Cliente>{
     @Autowired
     private JdbcTemplate jdbcTemplate;
     public void create_SIN_RECARGA_DE_ID(Cliente cliente) {

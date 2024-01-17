@@ -84,39 +84,37 @@ public class ComercialController {
         return "comerciales";
     }
     */
-    @GetMapping("/comercial/{id_comercial}/pedidos/crear")
+    @GetMapping("/comerciales/{id_comercial}/pedidos/crear")
     public String crearPedido(Model model,@PathVariable int id_comercial) {
         Pedido p = new Pedido();
-        model.addAttribute("action", "crear");
         model.addAttribute("pedido", p);
         model.addAttribute("id_comercial", id_comercial);
         return "formPedido";
     }
-    @PostMapping("/comercial/{id_comercial}/pedidos/crear")
+    @PostMapping("/comerciales/{id_comercial}/pedidos/crear")
     public RedirectView submitCrearPedido(@ModelAttribute Pedido c,@PathVariable int id_comercial) {
         comercialService.create(c);
-        return new RedirectView("/comercial/"+id_comercial);
+        return new RedirectView("/comerciales/"+id_comercial);
     }
-    @GetMapping("/comercial/{id_comercial}/pedidos/editar/{id}")
+    @GetMapping("/comerciales/{id_comercial}/pedidos/editar/{id}")
     public String editarPedido(Model model,@PathVariable int id_comercial, @PathVariable int id){
         Optional<Pedido> p=comercialService.findPedido(id);
         if (p.isPresent()){
-            model.addAttribute("action", "editar");
             model.addAttribute("pedido", p.get());
             model.addAttribute("id_comercial", id_comercial);
-            return "formPedido";
+            return "editarPedido";
         } else {
             return detalle(model,id_comercial);
         }
     }
-    @PostMapping("/comercial/{id_comercial}/pedidos/editar")
+    @PostMapping("/comerciales/{id_comercial}/pedidos/editar")
     public RedirectView submitEditarPedido(Model model,@PathVariable int id_comercial, @ModelAttribute Pedido p){
         comercialService.update(p);
-        return new RedirectView("/comercial/"+id_comercial);
+        return new RedirectView("/comerciales/"+id_comercial);
     }
-    @PostMapping("/comercial/{id_comercial}/pedidos/borrar/{id}")
+    @PostMapping("/comerciales/{id_comercial}/pedidos/borrar/{id}")
     public RedirectView borrarPedido(Model model,@PathVariable int id_comercial, @PathVariable int id){
         comercialService.deletePedido(id);
-        return new RedirectView("/comercial/"+id_comercial);
+        return new RedirectView("/comerciales/"+id_comercial);
     }
 }

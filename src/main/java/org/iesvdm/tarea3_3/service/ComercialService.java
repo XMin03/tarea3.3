@@ -1,7 +1,8 @@
 package org.iesvdm.tarea3_3.service;
 
-import org.iesvdm.tarea3_3.dao.ComercialDAO;
+import org.iesvdm.tarea3_3.dao.DAO;
 import org.iesvdm.tarea3_3.dao.PedidoDAO;
+import org.iesvdm.tarea3_3.model.Cliente;
 import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 public class ComercialService {
     @Autowired
-    private ComercialDAO comercialDAO;
+    private DAO<Comercial> comercialDAO;
     @Autowired
     private PedidoDAO pedidoDAO;
     public void create(Comercial c){

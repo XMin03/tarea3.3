@@ -4,14 +4,14 @@
     <title>Comercial</title>
 </head>
 <body>
-<h1>Crear Pedido</h1>
+<h1>Editar Pedido</h1>
 
-<form th:action="@{/comerciales/__${id_comercial}__/pedidos/crear}" th:method="post" th:object="${pedido}">
+<form th:action="@{/comerciales/__${id_comercial}__/pedidos/editar}" th:method="post" th:object="${pedido}">
     <input th:type="hidden" th:field="*{id}" required/>
     <label>Total*: </label><input th:type="number" step="0.01" th:field="*{total}" required/>
     <label>Fecha*: </label><input th:type="date" th:field="*{fecha}" required/>
     <label>id_cliente*: </label><input th:type="number" th:min="0" th:field="*{id_cliente}" required/>
-    <label>id_comercial*: </label><input th:type="number" th:min="0" id="id_comercial" name="id_comercial" th:value="${id_comercial}" disabled/>
+    <label>id_comercial*: </label><input th:type="number" th:min="0" th:field="*{id_comercial}" required/>
     <input type="submit" value="Aceptar">
 </form>
 </body>

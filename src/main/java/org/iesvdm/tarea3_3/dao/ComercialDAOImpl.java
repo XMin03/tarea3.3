@@ -13,22 +13,22 @@ import java.util.List;
 import java.util.Optional;
 @Slf4j
 @Repository
-public class ComercialDAOImpl implements ComercialDAO{
+public class ComercialDAOImpl implements DAO<Comercial>{
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Override
-    public void create(Comercial cliente) {
+    public void create(Comercial comercial) {
         KeyHolder k=new GeneratedKeyHolder();
         jdbcTemplate.update(con -> {
             PreparedStatement ps=con.prepareStatement("insert into comercial (nombre,apellido1,apellido2,comisión) values(?,?,?,?)",new String[]{"id"});
             int i=1;
-            ps.setString(i++,cliente.getNombre());
-            ps.setString(i++,cliente.getApellido1());
-            ps.setString(i++,cliente.getApellido2());
-            ps.setFloat(i,cliente.getComision());
+            ps.setString(i++,comercial.getNombre());
+            ps.setString(i++,comercial.getApellido1());
+            ps.setString(i++,comercial.getApellido2());
+            ps.setFloat(i,comercial.getComision());
             return ps;
         },k);
-        cliente.setId(k.getKey().intValue());
+        comercial.setId(k.getKey().intValue());
     }
 
     @Override
@@ -60,13 +60,13 @@ public class ComercialDAOImpl implements ComercialDAO{
     }
 
     @Override
-    public void update(Comercial cliente) {
+    public void update(Comercial comercial) {
         int rows=jdbcTemplate.update("update comercial set nombre=?,apellido1=?,apellido2=?,comisión=? where id=?",
-                cliente.getNombre(),
-                cliente.getApellido1(),
-                cliente.getApellido2(),
-                cliente.getComision(),
-                cliente.getId());
+                comercial.getNombre(),
+                comercial.getApellido1(),
+                comercial.getApellido2(),
+                comercial.getComision(),
+                comercial.getId());
         log.info("Update de Comercial con {} registros actualizados.", rows);
     }
 

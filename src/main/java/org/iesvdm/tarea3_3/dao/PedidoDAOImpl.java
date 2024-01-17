@@ -29,7 +29,7 @@ public class PedidoDAOImpl implements PedidoDAO{
             PreparedStatement ps = con.prepareStatement(sql,new String[]{"id"});
                 int idx = 1;
                 ps.setDouble(idx++,pedido.getTotal());
-                ps.setDate(idx++,new Date(pedido.getFecha().getTime()));
+                ps.setDate(idx++,pedido.getFecha());
                 ps.setInt(idx++,pedido.getId_cliente());
                 ps.setInt(idx,pedido.getId_comercial());
                 return ps;
@@ -38,18 +38,32 @@ public class PedidoDAOImpl implements PedidoDAO{
     }
 
     @Override
+    public List<Pedido> getAll() {
+        List<Pedido> p= jdbcTemplate.query("select * from pedido",((rs, rowNum) -> new Pedido(
+                rs.getInt("id"),
+                rs.getDouble("total"),
+                rs.getDate("fecha"),
+                rs.getInt("id_cliente"),
+                rs.getInt("id_comercial"))));
+        log.info("Devueltos {} registros.", p.size());
+        return p;
+    }
+
+    @Override
     public List<Pedido> getAllByComercial(int id) {
-        return jdbcTemplate.query("select * from pedido where id_comercial=?",((rs, rowNum) -> new Pedido(
+        List<Pedido> p= jdbcTemplate.query("select * from pedido where id_comercial=?",((rs, rowNum) -> new Pedido(
                 rs.getInt("id"),
                 rs.getDouble("total"),
                 rs.getDate("fecha"),
                 rs.getInt("id_cliente"),
                 rs.getInt("id_comercial"))),id);
+        log.info("Devueltos {} registros.", p.size());
+        return p;
     }
 
     @Override
     public Optional<Pedido> find(int id) {
-        Pedido p=jdbcTemplate.queryForObject("select * from pedido where id_comercial=?",((rs, rowNum) -> new Pedido(
+        Pedido p=jdbcTemplate.queryForObject("select * from pedido where id=?",((rs, rowNum) -> new Pedido(
                 rs.getInt("id"),
                 rs.getDouble("total"),
                 rs.getDate("fecha"),
