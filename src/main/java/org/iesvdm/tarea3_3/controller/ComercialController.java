@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class ComercialController {
@@ -32,7 +35,9 @@ public class ComercialController {
         if (c.isPresent()){
             model.addAttribute("listaComerciales", c.get());
             List<Pedido> p= comercialService.listAll(id);
-            model.addAttribute("listaPedido", p);
+            Map<Pedido,String> map=new HashMap<>();
+            p.stream().forEach(pedido->map.put(pedido, comercialService.toName(pedido.getId_cliente())));
+            model.addAttribute("listaPedido", map);
             return "comerciales";
         } else {
             return listar(model);

@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface PedidoDAO extends DAO<Pedido>{
 
     public List<Pedido> getAllByComercial(int id);
+    public String toName(long id);
 }

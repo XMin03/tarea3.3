@@ -88,4 +88,9 @@ public class PedidoDAOImpl implements PedidoDAO{
         int rows=jdbcTemplate.update("delete from pedido where id=?", id);
         log.info("Delete de Pedido con {} registros actualizados.", rows);
     }
+    public String toName(long id){
+        return jdbcTemplate.queryForObject("Select nombre from cliente where id=?" ,
+                new Object[]{id},
+                String.class);
+    }
 }

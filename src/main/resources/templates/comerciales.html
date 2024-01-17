@@ -52,11 +52,11 @@
             </form>
         </th>
     </tr>
-    <tr th:each="pedido:${listaPedido}">
+    <tr th:each="pedido:${listaPedido.keySet()}">
         <td th:text="${pedido.id}">0</td>
         <td th:text="${pedido.total}">total</td>
         <td th:text="${pedido.fecha}">fecha</td>
-        <td th:text="${pedido.id_cliente}">id_cliente</td>
+        <td><a th:href="@{/clientes/__${pedido.id_cliente}__}" th:text="${listaPedido.get(pedido)}">nombre_cliente</a></td>
         <td th:text="${pedido.id_comercial}">id_comercial</td>
 
         <td>

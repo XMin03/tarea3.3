@@ -47,4 +47,7 @@ public class ComercialService {
     public void update(Pedido p) {
         pedidoDAO.update(p);
     }
+    public String toName(long id){;
+        return pedidoDAO.toName(id);
+    }
 }
