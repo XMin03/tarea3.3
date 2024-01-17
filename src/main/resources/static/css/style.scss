@@ -7,6 +7,22 @@
 h1{
   padding: 30px;
 }
+nav{
+  background: black;
+  width: 100%;
+  ul{
+    list-style: none;
+    li{
+      a{
+        color: white;
+        text-decoration: none;
+        &:hover{
+          color: blue;
+        }
+      }
+    }
+  }
+}
 table{
   width: 90%;
   margin: 0 auto;
