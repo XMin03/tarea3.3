@@ -34,6 +34,7 @@ public class PedidoDAOImpl implements PedidoDAO{
                 ps.setInt(idx,pedido.getId_comercial());
                 return ps;
             },k);
+        pedido.setId(k.getKey().intValue());
         log.info("Insertados {} registros.", row);
     }
 

@@ -33,9 +33,16 @@
             <form th:action="@{/comerciales/editar/}+${comercial.id}" style="display: inline;">
                 <input type="submit" value="Editar" />
             </form>
-            <form th:action="@{/comerciales/borrar/__${comercial.id}__}" method="post" style="display: inline;">
-                <input type="submit" value="Eliminar" />
-            </form>
+            <button type="button" th:id="comercial+${comercial.id}" onclick="mostrarConfirmacion(this)">Eliminar</button>
+            <div th:id="confirmacion-comercial+${comercial.id}" class="confirmacion" style="display: none;">
+                <div class="confirmacion-contenido">
+                    <p>Seguro que quieres borrar?</p>
+                    <button th:id="comercial+${comercial.id}" onclick="cerrarConfirmacion(this)">Cancelar</button>
+                    <form th:action="@{/comerciales/borrar/__${comercial.id}__}" method="post" style="display: inline;">
+                        <input type="submit" value="Confirmar" />
+                    </form>
+                </div>
+            </div>
         </td>
     </tr>
 </table>
@@ -64,11 +71,28 @@
             <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/editar/}+${pedido.id}" style="display: inline;">
                 <input type="submit" value="Editar" />
             </form>
-            <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;">
-                <input type="submit" value="Eliminar" />
-            </form>
+            <button type="button" th:id="pedido+${pedido.id}" onclick="mostrarConfirmacion(this)">Eliminar</button>
+            <div th:id="confirmacion-pedido+${pedido.id}" class="confirmacion" style="display: none;">
+                <div class="confirmacion-contenido">
+                    <p>Seguro que quieres borrar?</p>
+                    <button th:id="pedido+${pedido.id}" onclick="cerrarConfirmacion(this)">Cancelar</button>
+                    <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;">
+                        <input type="submit" value="Confirmar" />
+                    </form>
+                </div>
+            </div>
         </td>
     </tr>
 </table>
+
+
+<script th:inline="javascript">
+    function mostrarConfirmacion(button) {
+        document.getElementById("confirmacion-"+button.id).style.display = "flex";
+    }
+    function cerrarConfirmacion(button) {
+        document.getElementById("confirmacion-"+button.id).style.display = "none";
+    }
+</script>
 </body>
 </html>

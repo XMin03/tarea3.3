@@ -15,8 +15,7 @@ import java.util.Optional;
 public class ComercialService {
     @Autowired
     private DAO<Comercial> comercialDAO;
-    @Autowired
-    private PedidoDAO pedidoDAO;
+
     public void create(Comercial c){
         comercialDAO.create(c);
     }
@@ -32,22 +31,5 @@ public class ComercialService {
     public void update(Comercial c){
         comercialDAO.update(c);
     }
-    public void create(Pedido p){
-        pedidoDAO.create(p);
-    }
-    public List<Pedido> listAll(int id){
-        return pedidoDAO.getAllByComercial(id);
-    }
-    public Optional<Pedido> findPedido(int id){
-        return pedidoDAO.find(id);
-    }
-    public void deletePedido(int id){
-        pedidoDAO.delete(id);
-    }
-    public void update(Pedido p) {
-        pedidoDAO.update(p);
-    }
-    public String toName(long id){;
-        return pedidoDAO.toName(id);
-    }
+
 }
