@@ -5,6 +5,7 @@ import org.iesvdm.tarea3_3.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -74,9 +75,14 @@ public class ClienteController {
      * @return
      */
     @PostMapping("/clientes/crear")
-    public RedirectView submitCrear(@ModelAttribute Cliente c) {
+    public String submitCrear(Model model, @ModelAttribute Cliente c, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            model.addAttribute("action", "crear");
+            model.addAttribute("cliente", c);
+            return "formCliente";
+        }
         clienteService.create(c);
-        return new RedirectView("/clientes") ;
+        return "redirect:/clientes";
     }
 
     /**
@@ -96,7 +102,7 @@ public class ClienteController {
             return "formCliente";
         } else {
             //si no encuentra al index, que no va
-            return listar(model);
+            return "redirect:/clientes";
         }
     }
 
@@ -107,9 +113,14 @@ public class ClienteController {
      * @return
      */
     @PostMapping("/clientes/editar")
-    public RedirectView submitEditar(Model model, @ModelAttribute Cliente c){
+    public String submitEditar(Model model, @ModelAttribute Cliente c, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("action", "editar");
+            model.addAttribute("cliente", c);
+            return "formCliente";
+        }
         clienteService.update(c);
-        return new RedirectView("/clientes");
+        return "redirect:/clientes";
     }
 
     /**

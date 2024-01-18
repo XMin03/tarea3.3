@@ -7,6 +7,7 @@ import org.iesvdm.tarea3_3.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,9 +49,13 @@ public class PedidoController {
      * @return
      */
     @PostMapping("/comerciales/{id_comercial}/pedidos/crear")
-    public RedirectView submitCrearPedido(@ModelAttribute Pedido c, @PathVariable int id_comercial) {
+    public String submitCrearPedido(Model model,@ModelAttribute Pedido c, @PathVariable int id_comercial, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pedido", c);
+            return "formPedido";
+        }
         pedidoService.create(c);
-        return new RedirectView("/comerciales/"+id_comercial);
+        return "redirect:/comerciales/"+id_comercial;
     }
 
     /**
@@ -70,7 +75,7 @@ public class PedidoController {
             model.addAttribute("comerciales",comercialService.listAll());
             return "editarPedido";
         } else {
-            return "comerciales";
+            return "redirect:/comerciales/"+id_comercial;
         }
     }
 
@@ -82,9 +87,13 @@ public class PedidoController {
      * @return
      */
     @PostMapping("/comerciales/{id_comercial}/pedidos/editar")
-    public RedirectView submitEditarPedido(Model model,@PathVariable int id_comercial, @ModelAttribute Pedido p){
+    public String submitEditarPedido(Model model,@PathVariable int id_comercial, @ModelAttribute Pedido p,BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("pedido", p);
+            return "editarPedido";
+        }
         pedidoService.update(p);
-        return new RedirectView("/comerciales/"+id_comercial);
+        return "redirect:/comerciales/"+id_comercial;
     }
 
     /**

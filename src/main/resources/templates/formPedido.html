@@ -7,17 +7,30 @@
 <h1>Crear Pedido</h1>
 <!-- formulario de pedido para crear -->
 <form th:action="@{/comerciales/__${id_comercial}__/pedidos/crear}" th:method="post" th:object="${pedido}">
-    <input th:type="hidden" th:field="*{id}" required/>
-    <label>Total*: </label><input th:type="number" step="0.01" th:field="*{total}" required/>
-    <label>Fecha*: </label><input th:type="date" th:field="*{fecha}" required/>
+    <input th:type="hidden" th:field="*{id}" />
+    <label>Total*: </label><input th:type="number" step="0.01" th:field="*{total}" />
+    <ul th:if="${#fields.hasErrors('total')}">
+        <li th:each="err : ${#fields.errors('total')}" th:text="${err}" class="error" />
+    </ul>
+    <label>Fecha*: </label><input th:type="date" th:field="*{fecha}" />
+    <ul th:if="${#fields.hasErrors('fecha')}">
+        <li th:each="err : ${#fields.errors('fecha')}" th:text="${err}" class="error" />
+    </ul>
     <label>Cliente*: </label>
     <!-- select cliente -->
     <select th:field="*{id_cliente}">
         <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
     </select>
+    <ul th:if="${#fields.hasErrors('id_cliente')}">
+        <li th:each="err : ${#fields.errors('id_cliente')}" th:text="${err}" class="error" />
+    </ul>
     <!-- id comercial desabilitada -->
     <label>id_comercial*: </label><input th:type="number" th:min="0" th:field="*{id_comercial}" disabled/>
     <input type="submit" value="Aceptar">
 </form>
+<!-- errores    -->
+
+
+
 </body>
 </html>

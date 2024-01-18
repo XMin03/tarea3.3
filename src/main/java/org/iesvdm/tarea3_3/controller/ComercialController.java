@@ -1,5 +1,6 @@
 package org.iesvdm.tarea3_3.controller;
 
+import org.iesvdm.tarea3_3.model.Cliente;
 import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Pedido;
 import org.iesvdm.tarea3_3.service.ComercialService;
@@ -7,6 +8,7 @@ import org.iesvdm.tarea3_3.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,7 +59,7 @@ public class ComercialController {
             model.addAttribute("listaPedido", map);
             return "comerciales";
         } else {
-            return listar(model);
+            return "redirect:/comerciales";
         }
     }
 
@@ -80,9 +82,14 @@ public class ComercialController {
      * @return
      */
     @PostMapping("/comerciales/crear")
-    public RedirectView submitCrear(@ModelAttribute Comercial c) {
+    public String submitCrear(Model model,@ModelAttribute Comercial c,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("action", "editar");
+            model.addAttribute("comercial", c);
+            return "formComercial";
+        }
         comercialService.create(c);
-        return new RedirectView("/comerciales") ;
+        return "redirect:/comerciales";
     }
 
     /**
@@ -99,7 +106,7 @@ public class ComercialController {
             model.addAttribute("comercial", c.get());
             return "formComercial";
         } else {
-            return listar(model);
+            return "redirect:/comerciales";
         }
     }
 
@@ -110,9 +117,14 @@ public class ComercialController {
      * @return
      */
     @PostMapping("/comerciales/editar")
-    public RedirectView submitEditar(Model model, @ModelAttribute Comercial c){
+    public String submitEditar(Model model, @ModelAttribute Comercial c, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("action", "editar");
+            model.addAttribute("comercial", c);
+            return "formComercial";
+        }
         comercialService.update(c);
-        return new RedirectView("/comerciales");
+        return "redirect:/comerciales";
     }
 
     /**
