@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class PedidoService {
+    /*igual que los otros dos*/
     @Autowired
     private PedidoDAO pedidoDAO;
     public void create(Pedido p){

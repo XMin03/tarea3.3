@@ -14,6 +14,7 @@ import java.util.Optional;
 @Slf4j
 @Repository
 public class ComercialDAOImpl implements DAO<Comercial>{
+    /*       everything igual que ClienteDAOImpl pero con comercial              */
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Override

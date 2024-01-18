@@ -5,16 +5,18 @@
 </head>
 <body>
 <h1>Crear Pedido</h1>
-
+<!-- formulario de pedido para crear -->
 <form th:action="@{/comerciales/__${id_comercial}__/pedidos/crear}" th:method="post" th:object="${pedido}">
     <input th:type="hidden" th:field="*{id}" required/>
     <label>Total*: </label><input th:type="number" step="0.01" th:field="*{total}" required/>
     <label>Fecha*: </label><input th:type="date" th:field="*{fecha}" required/>
     <label>Cliente*: </label>
+    <!-- select cliente -->
     <select th:field="*{id_cliente}">
         <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
     </select>
-    <label>id_comercial*: </label><input th:type="number" th:min="0" id="id_comercial" name="id_comercial" th:value="${id_comercial}" disabled/>
+    <!-- id comercial desabilitada -->
+    <label>id_comercial*: </label><input th:type="number" th:min="0" th:field="*{id_comercial}" disabled/>
     <input type="submit" value="Aceptar">
 </form>
 </body>

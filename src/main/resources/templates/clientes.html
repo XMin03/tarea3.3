@@ -4,9 +4,13 @@
     <title>Clientes</title>
 </head>
 <body>
+<!-- nav    -->
 <nav th:insert="fragments/general.html::nav"></nav>
+<!-- titulo    -->
     <h1>Clientes</h1>
+<!-- CRUD table    -->
     <table>
+        <!-- header table    -->
         <tr>
             <th>ID</th>
             <th>Nombre</th>
@@ -14,12 +18,14 @@
             <th>Apellido1</th>
             <th>Ciudad</th>
             <th>Categoría</th>
+            <!-- create    -->
             <th>
                 <form th:action="@{/clientes/crear}">
                     <input type="submit" value="Crear">
                 </form>
             </th>
         </tr>
+        <!-- listAll    -->
         <tr th:each="cliente:${listaClientes}">
             <td th:text="${cliente.id}">0</td>
             <td th:text="${cliente.nombre}">nombre</td>
@@ -27,19 +33,35 @@
             <td th:text="${cliente.apellido2 ?: '&nbsp;'}">apellido2</td>
             <td th:text="${cliente.ciudad}">ciudad</td>
             <td th:text="${cliente.categoria}">categoría</td>
-
+            <!-- actions    -->
             <td>
+                <!-- detail    -->
                 <form th:action="@{/clientes/__${cliente.id}__}" style="display: inline;">
                     <input type="submit" value="Ver Detalle" />
                 </form>
+                <!-- editar    -->
                 <form th:action="@{/clientes/editar/}+${cliente.id}" style="display: inline;">
                     <input type="submit" value="Editar" />
                 </form>
-                <form th:action="@{/clientes/borrar/__${cliente.id}__}" method="post" style="display: inline;">
-                    <input type="submit" value="Eliminar" />
-                </form>
+                <!-- borrar    -->
+                <!-- boton para mostrar el div a seguida    -->
+                <button type="button" th:id="cliente+${pedido.id}" onclick="mostrarConfirmacion(this)">Eliminar</button>
+                <!-- venta con mensaje de confirmacion    -->
+                <div th:id="confirmacion-cliente+${pedido.id}" class="confirmacion" style="display: none;">
+                    <div class="confirmacion-contenido">
+                        <!-- pregunta    -->
+                        <p>Seguro que quieres borrar?</p>
+                        <!-- cancelar    -->
+                        <button th:id="cliente+${pedido.id}" onclick="cerrarConfirmacion(this)">Cancelar</button>
+                        <!-- formulario con el input para borrar    -->
+                        <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;">
+                            <input type="submit" value="Confirmar" />
+                        </form>
+                    </div>
+                </div>
             </td>
         </tr>
     </table>
+<script src="/js/script.js"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@
     <title>Comerciales</title>
 </head>
 <body>
+<!-- mismo que cliente pero con otra tabla de pedido que se mostrará cuando le ha pasado la lista de pedido que habrá solo cuando mostra los detalles de comercial    -->
 <nav th:insert="fragments/general.html :: nav"></nav>
 <h1>Comercial</h1>
 <table>
@@ -84,15 +85,6 @@
         </td>
     </tr>
 </table>
-
-
-<script th:inline="javascript">
-    function mostrarConfirmacion(button) {
-        document.getElementById("confirmacion-"+button.id).style.display = "flex";
-    }
-    function cerrarConfirmacion(button) {
-        document.getElementById("confirmacion-"+button.id).style.display = "none";
-    }
-</script>
+<script src="/js/script.js"></script>
 </body>
 </html>

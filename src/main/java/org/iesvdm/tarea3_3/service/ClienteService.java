@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class ClienteService {
+    /*usa todas las funciones de DAOImpl. no cambia nada en realidad.......*/
     @Autowired
     private DAO<Cliente> clienteDAO;
     public void create(Cliente c){

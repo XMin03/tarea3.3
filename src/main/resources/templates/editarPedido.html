@@ -5,16 +5,17 @@
 </head>
 <body>
 <h1>Editar Pedido</h1>
-
 <form th:action="@{/comerciales/__${id_comercial}__/pedidos/editar}" th:method="post" th:object="${pedido}">
     <input th:type="hidden" th:field="*{id}" required/>
     <label>Total*: </label><input th:type="number" step="0.01" th:field="*{total}" required/>
     <label>Fecha*: </label><input th:type="date" th:field="*{fecha}" required/>
     <label>Cliente*: </label>
+    <!-- select de cliente    -->
     <select th:field="*{id_cliente}">
         <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
     </select>
     <label>Comercial*: </label>
+    <!-- select de comercial    -->
     <select th:field="*{id_comercial}">
         <option th:each="comercial : ${comerciales}" th:value="${comercial.id}" th:text="${comercial.nombre}+${comercial.apellido1}"></option>
     </select>

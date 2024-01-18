@@ -5,7 +5,7 @@
 </head>
 <body>
 <h1 th:text="${#strings.capitalize(action)} +' Cliente'">Title</h1>
-
+<!-- formulario de cliente usado para editar y crear según la accion que llega   -->
 <form th:action="@{/clientes/__${action}__}" th:method="post" th:object="${cliente}">
     <input th:type="hidden" th:value="*{id}" th:field="*{id}" required/>
     <label>Nombre*: </label><input th:type="text" th:field="*{nombre}" required/>

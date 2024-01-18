@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ClienteDAOImpl implements DAO<Cliente>{
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    /*              COPIAS DESDE CLASSROOM QUE NO SE HAN USADO              */
     public void create_SIN_RECARGA_DE_ID(Cliente cliente) {
         jdbcTemplate.update("""
                                INSERT INTO cliente
@@ -71,6 +72,11 @@ public class ClienteDAOImpl implements DAO<Cliente>{
         Number number = simpleJdbcInsert.executeAndReturnKey(params);
         cliente.setId(number.intValue());
     }
+
+    /**
+     *  crea el cliente con recarga de la id
+     * @param cliente
+     */
     @Override
     public void create(Cliente cliente) {
         String insert= """
@@ -91,7 +97,10 @@ public class ClienteDAOImpl implements DAO<Cliente>{
         log.info("Insertados {} registros.", rows);
     }
 
-
+    /**
+     * obtiene todos los clientes
+     * @return
+     */
     @Override
     public List<Cliente> getAll() {
         List<Cliente> clientes=jdbcTemplate.query("Select * from cliente",
@@ -107,6 +116,11 @@ public class ClienteDAOImpl implements DAO<Cliente>{
         return clientes;
     }
 
+    /**
+     * busca un cliente segun la id
+     * @param id
+     * @return
+     */
     @Override
     public Optional<Cliente> find(int id) {
         Cliente c=jdbcTemplate.queryForObject("Select * from cliente where id=?" ,
@@ -124,6 +138,10 @@ public class ClienteDAOImpl implements DAO<Cliente>{
             return Optional.empty(); }
     }
 
+    /**
+     * actualiza los parametros del cliente segun su id
+     * @param cliente
+     */
     @Override
     public void update(Cliente cliente) {
         int rows=jdbcTemplate.update("update cliente set nombre=?,apellido1=?,apellido2=?,ciudad=?,categoría=? where id=?",
@@ -136,6 +154,10 @@ public class ClienteDAOImpl implements DAO<Cliente>{
         log.info("Update de Cliente con {} registros actualizados.", rows);
     }
 
+    /**
+     * elimina segun la id
+     * @param id
+     */
     @Override
     public void delete(long id) {
         int rows=jdbcTemplate.update("delete from cliente where id=?",id);

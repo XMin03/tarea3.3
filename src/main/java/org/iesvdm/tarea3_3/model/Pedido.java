@@ -12,6 +12,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pedido {
+    /*parametros de la base de datos*/
     int id;
     double total;
     Date fecha;

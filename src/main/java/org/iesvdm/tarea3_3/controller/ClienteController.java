@@ -18,12 +18,25 @@ import java.util.Optional;
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;
+
+    /**
+     * Lista todos los clientes y se va a la pagina del crud de cliente que tambien es el index de cliente
+     * @param model
+     * @return
+     */
     @GetMapping("/clientes")
     public String listar(Model model){
         List<Cliente> listaClientes =  clienteService.listAll();
         model.addAttribute("listaClientes", listaClientes);
         return "clientes";
     }
+
+    /**
+     * los mismo que listar pero muestra solo un cliente
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping("/clientes/{id}")
     public String detalle(Model model,@PathVariable int id){
         //obtiene el cliente
@@ -33,49 +46,85 @@ public class ClienteController {
             model.addAttribute("listaClientes", c.get());
             return "clientes";
         } else {
-            //si no encuentra vuelve a la pagina principal
+            //si no encuentra vuelve a la pagina principal que no lo hace
             return listar(model);
         }
     }
 
+    /**
+     * va a la pagina para crea un cliente
+     * @param model
+     * @return
+     */
     @GetMapping("/clientes/crear")
     public String crear(Model model) {
+        //cliente vacio
         Cliente c = new Cliente();
+        //dice la accion porque formCliente es sea para crear que para editar
         model.addAttribute("action", "crear");
+        //paso el cliente vacio
         model.addAttribute("cliente", c);
+        //va al formulario de cliente
         return "formCliente";
     }
+
+    /**
+     * Crea en la base de datos y vuelve al index
+     * @param c
+     * @return
+     */
     @PostMapping("/clientes/crear")
     public RedirectView submitCrear(@ModelAttribute Cliente c) {
         clienteService.create(c);
         return new RedirectView("/clientes") ;
     }
 
-
+    /**
+     * va a la pagina para editar la id
+     * @param model
+     * @param id
+     * @return
+     */
     @GetMapping("/clientes/editar/{id}")
     public String editar(Model model, @PathVariable int id){
+        //busca el cliente ya existente para obtener los valores que estaba.
         Optional<Cliente> c=clienteService.find(id);
         if (c.isPresent()){
+            //lo mismo que crear pero con la accion editar
             model.addAttribute("action", "editar");
             model.addAttribute("cliente", c.get());
             return "formCliente";
         } else {
+            //si no encuentra al index, que no va
             return listar(model);
         }
     }
+
+    /**
+     * Actualiza en la base de dato y vuelve al index
+     * @param model
+     * @param c
+     * @return
+     */
     @PostMapping("/clientes/editar")
     public RedirectView submitEditar(Model model, @ModelAttribute Cliente c){
         clienteService.update(c);
         return new RedirectView("/clientes");
     }
 
+    /**
+     * borra el cliente segun la id
+     * @param model
+     * @param id
+     * @return
+     */
     @PostMapping("/clientes/borrar/{id}")
     public RedirectView borrar(Model model, @PathVariable int id){
         clienteService.delete(id);
         return new RedirectView("/clientes");
     }
 
-    /*
+    /* no usado
     @PostMapping("/clientes/buscar")
     public String find(Model model){
         List<Cliente> listaClientes =  clienteService.listAll();

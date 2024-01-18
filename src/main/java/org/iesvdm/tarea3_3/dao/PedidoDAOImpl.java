@@ -17,6 +17,7 @@ import java.util.Optional;
 @Slf4j
 @Repository
 public class PedidoDAOImpl implements PedidoDAO{
+    /*           IGUALES QUE LAS OTRAS DOS CON DOS FUNCIONES MAS                  */
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Override
@@ -50,6 +51,11 @@ public class PedidoDAOImpl implements PedidoDAO{
         return p;
     }
 
+    /**
+     * obtiene todos los pedidos segun la id del comercial
+     * @param id id del comercial
+     * @return
+     */
     @Override
     public List<Pedido> getAllByComercial(int id) {
         List<Pedido> p= jdbcTemplate.query("select * from pedido where id_comercial=?",((rs, rowNum) -> new Pedido(
@@ -89,6 +95,11 @@ public class PedidoDAOImpl implements PedidoDAO{
         int rows=jdbcTemplate.update("delete from pedido where id=?", id);
         log.info("Delete de Pedido con {} registros actualizados.", rows);
     }
+    /**
+     * devuelve el nombre del cliente segun la id
+     * @param id  id del cliente
+     * @return
+     */
     public String toName(long id){
         return jdbcTemplate.queryForObject("Select nombre from cliente where id=?" ,
                 new Object[]{id},

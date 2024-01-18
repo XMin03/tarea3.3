@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Cliente {
+    /*parametros de la base de datos*/
     int id;
     String nombre;
     String apellido1;

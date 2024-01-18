@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Service
 public class ComercialService {
+    /*igual que cliente service*/
     @Autowired
     private DAO<Comercial> comercialDAO;
 

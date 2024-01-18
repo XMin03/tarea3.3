@@ -3,6 +3,10 @@ package org.iesvdm.tarea3_3.dao;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * BASE DE DAO
+ * @param <T>
+ */
 public interface DAO <T>{
     public void create(T t);
 
