@@ -10,7 +10,10 @@
     <input th:type="hidden" th:field="*{id}" required/>
     <label>Total*: </label><input th:type="number" step="0.01" th:field="*{total}" required/>
     <label>Fecha*: </label><input th:type="date" th:field="*{fecha}" required/>
-    <label>id_cliente*: </label><input th:type="number" th:min="0" th:field="*{id_cliente}" required/>
+    <label>Cliente*: </label>
+    <select th:field="*{id_cliente}">
+        <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
+    </select>
     <label>id_comercial*: </label><input th:type="number" th:min="0" id="id_comercial" name="id_comercial" th:value="${id_comercial}" disabled/>
     <input type="submit" value="Aceptar">
 </form>

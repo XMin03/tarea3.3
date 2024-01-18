@@ -1,6 +1,8 @@
 package org.iesvdm.tarea3_3.controller;
 
 import org.iesvdm.tarea3_3.model.Pedido;
+import org.iesvdm.tarea3_3.service.ClienteService;
+import org.iesvdm.tarea3_3.service.ComercialService;
 import org.iesvdm.tarea3_3.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,15 @@ import java.util.Optional;
 public class PedidoController {
     @Autowired
     PedidoService pedidoService;
+    @Autowired
+    ClienteService clienteService;
+    @Autowired
+    ComercialService comercialService;
     @GetMapping("/comerciales/{id_comercial}/pedidos/crear")
     public String crearPedido(Model model, @PathVariable int id_comercial) {
         Pedido p = new Pedido();
         model.addAttribute("pedido", p);
+        model.addAttribute("clientes",clienteService.listAll());
         model.addAttribute("id_comercial", id_comercial);
         return "formPedido";
     }
@@ -34,6 +41,8 @@ public class PedidoController {
         Optional<Pedido> p=pedidoService.findPedido(id);
         if (p.isPresent()){
             model.addAttribute("pedido", p.get());
+            model.addAttribute("clientes",clienteService.listAll());
+            model.addAttribute("comerciales",comercialService.listAll());
             model.addAttribute("id_comercial", id_comercial);
             return "editarPedido";
         } else {
