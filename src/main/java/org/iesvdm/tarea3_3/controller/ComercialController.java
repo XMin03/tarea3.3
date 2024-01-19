@@ -1,5 +1,6 @@
 package org.iesvdm.tarea3_3.controller;
 
+import jakarta.validation.Valid;
 import org.iesvdm.tarea3_3.model.Cliente;
 import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Pedido;
@@ -82,7 +83,7 @@ public class ComercialController {
      * @return
      */
     @PostMapping("/comerciales/crear")
-    public String submitCrear(Model model,@ModelAttribute Comercial c,BindingResult bindingResult) {
+    public String submitCrear(Model model,@Valid @ModelAttribute Comercial c,BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "editar");
             model.addAttribute("comercial", c);
@@ -117,7 +118,7 @@ public class ComercialController {
      * @return
      */
     @PostMapping("/comerciales/editar")
-    public String submitEditar(Model model, @ModelAttribute Comercial c, BindingResult bindingResult){
+    public String submitEditar(Model model, @Valid @ModelAttribute Comercial c, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "editar");
             model.addAttribute("comercial", c);

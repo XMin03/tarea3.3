@@ -1,5 +1,6 @@
 package org.iesvdm.tarea3_3.controller;
 
+import jakarta.validation.Valid;
 import org.iesvdm.tarea3_3.model.Pedido;
 import org.iesvdm.tarea3_3.service.ClienteService;
 import org.iesvdm.tarea3_3.service.ComercialService;
@@ -49,7 +50,7 @@ public class PedidoController {
      * @return
      */
     @PostMapping("/comerciales/{id_comercial}/pedidos/crear")
-    public String submitCrearPedido(Model model,@ModelAttribute Pedido c, @PathVariable int id_comercial, BindingResult bindingResult) {
+    public String submitCrearPedido(Model model,@Valid @ModelAttribute Pedido c, @PathVariable int id_comercial, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("pedido", c);
             return "formPedido";
@@ -87,7 +88,7 @@ public class PedidoController {
      * @return
      */
     @PostMapping("/comerciales/{id_comercial}/pedidos/editar")
-    public String submitEditarPedido(Model model,@PathVariable int id_comercial, @ModelAttribute Pedido p,BindingResult bindingResult){
+    public String submitEditarPedido(Model model, @PathVariable int id_comercial, @Valid @ModelAttribute Pedido p, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             model.addAttribute("pedido", p);
             return "editarPedido";

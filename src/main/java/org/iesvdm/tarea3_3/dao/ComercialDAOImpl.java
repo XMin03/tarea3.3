@@ -26,7 +26,7 @@ public class ComercialDAOImpl implements DAO<Comercial>{
             ps.setString(i++,comercial.getNombre());
             ps.setString(i++,comercial.getApellido1());
             ps.setString(i++,comercial.getApellido2());
-            ps.setFloat(i,comercial.getComision());
+            ps.setFloat(i,comercial.getComision().floatValue());
             return ps;
         },k);
         comercial.setId(k.getKey().intValue());
@@ -39,7 +39,7 @@ public class ComercialDAOImpl implements DAO<Comercial>{
                 rs.getString("nombre"),
                 rs.getString("apellido1"),
                 rs.getString("apellido2"),
-                rs.getFloat("comisión")
+                rs.getBigDecimal("comisión")
         )));
         log.info("Devueltos {} registros.", c.size());
 
@@ -55,7 +55,7 @@ public class ComercialDAOImpl implements DAO<Comercial>{
                     rs.getString("nombre"),
                     rs.getString("apellido1"),
                     rs.getString("apellido2"),
-                    rs.getFloat("comisión")
+                    rs.getBigDecimal("comisión")
                 )),id);
         return (c==null)?Optional.empty():Optional.of(c);
     }
@@ -66,7 +66,7 @@ public class ComercialDAOImpl implements DAO<Comercial>{
                 comercial.getNombre(),
                 comercial.getApellido1(),
                 comercial.getApellido2(),
-                comercial.getComision(),
+                comercial.getComision().floatValue(),
                 comercial.getId());
         log.info("Update de Comercial con {} registros actualizados.", rows);
     }

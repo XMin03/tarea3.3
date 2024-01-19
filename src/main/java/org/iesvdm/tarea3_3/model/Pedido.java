@@ -1,12 +1,10 @@
 package org.iesvdm.tarea3_3.model;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.sql.Date;
 @Data
 @AllArgsConstructor
@@ -20,8 +18,7 @@ public class Pedido {
     double total;
 
     @NotNull(message = "Fecha no puede ser nulo.")
-    @NotBlank(message = "Fecha no puede ser vacío.")
-    @NotEmpty(message = "Fecha no puede ser vacío.")
+    @NotEmpty(message = "fecha vacia")
     Date fecha;
 
     @NotNull(message = "Id_cliente no puede ser nulo.")

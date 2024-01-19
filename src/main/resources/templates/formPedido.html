@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:insert="fragments/general.html :: form">
+<head>
+    <th:block th:include="fragments/general.html :: form"></th:block>
     <title th:text="#{pedido}">Pedido</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
 <h1 th:text="#{boton.crear}+' '+#{pedido}">Crear Pedido</h1>
@@ -18,7 +20,7 @@
     </ul>
     <label th:text="#{id.cliente}+'*'">Cliente*: </label>
     <!-- select cliente -->
-    <select th:field="*{id_cliente}">
+    <select  class="js-example-basic-single" th:field="*{id_cliente}">
         <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
     </select>
     <ul th:if="${#fields.hasErrors('id_cliente')}">
@@ -29,4 +31,7 @@
     <input type="submit" th:value="#{boton.aceptar}">
 </form>
 </body>
+<script src="/js/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="/js/select2.js"></script>
 </html>

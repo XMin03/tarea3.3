@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:insert="fragments/general.html :: form">
+<head>
+    <th:block th:include="fragments/general.html :: form"></th:block>
     <title th:text="#{pedido}">Pedido</title>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
 <h1 th:text="#{boton.editar}+' '+#{pedido}">Editar Pedido</h1>
@@ -17,7 +19,7 @@
     </ul>
     <label th:text="#{cliente}+'*'">Cliente*: </label>
     <!-- select de cliente    -->
-    <select th:field="*{id_cliente}">
+    <select  class="js-example-basic-single" th:field="*{id_cliente}">
         <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
     </select>
     <ul th:if="${#fields.hasErrors('id_cliente')}">
@@ -25,14 +27,16 @@
     </ul>
     <label th:text="#{comercial}+'*'">Comercial*: </label>
     <!-- select de comercial    -->
-    <select th:field="*{id_comercial}">
-        <option th:each="comercial : ${comerciales}" th:value="${comercial.id}" th:text="${comercial.nombre}+${comercial.apellido1}"></option>
+    <select  class="js-example-basic-single" th:field="*{id_comercial}">
+        <option th:each="comercial : ${comerciales}" th:value="${comercial.id}" th:text="${comercial.nombre}+' '+${comercial.apellido1}"></option>
     </select>
     <ul th:if="${#fields.hasErrors('id_comercial')}">
         <li th:each="err : ${#fields.errors('id_comercial')}" th:text="${err}" class="error" />
     </ul>
     <input type="submit" th:value="#{boton.aceptar}">
 </form>
-<!-- errores    -->
+<script src="/js/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="/js/select2.js"></script>
 </body>
 </html>

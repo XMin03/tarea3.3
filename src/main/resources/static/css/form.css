@@ -33,4 +33,15 @@ form input[type=submit]:hover {
   background-color: beige;
 }
 
+.select2-results ul {
+  background-color: white;
+}
+
+ul {
+  list-style: none;
+  background-color: red;
+  padding-left: 10px;
+  margin-bottom: 5px;
+}
+
 /*# sourceMappingURL=form.css.map */

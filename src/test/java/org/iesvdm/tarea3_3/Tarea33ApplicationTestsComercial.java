@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 @SpringBootTest
@@ -24,16 +25,16 @@ public class Tarea33ApplicationTestsComercial {
                 , "José M."
                 , "Martín"
                 , "Tejero"
-                , 1);
+                , BigDecimal.ONE);
         this.comercialDAOimpl.create(comercial);
         comercial.setNombre("A");
         comercial.setApellido1("a");
         comercial.setApellido2("B");
-        comercial.setComision(2);
+        comercial.setComision(BigDecimal.TWO);
         comercialDAOimpl.update(comercial);
         Comercial c=comercialDAOimpl.find(comercial.getId()).get();
         Assertions.assertEquals(c, comercial);
-        comercial.setComision(3);
+        comercial.setComision(BigDecimal.TEN);
         c=comercialDAOimpl.find(comercial.getId()).get();
         Assertions.assertNotEquals(c, comercial);
     }
@@ -43,7 +44,7 @@ public class Tarea33ApplicationTestsComercial {
                 , "José M."
                 , "Martín"
                 , "Tejero"
-                , 1);
+                ,  BigDecimal.ONE);
         this.comercialDAOimpl.create(comercial);
         List<Comercial> antes=comercialDAOimpl.getAll();
         comercialDAOimpl.delete(comercial.getId());
@@ -56,7 +57,7 @@ public class Tarea33ApplicationTestsComercial {
                 , "José M."
                 , "Martín"
                 , "Tejero"
-                , 1);
+                ,  BigDecimal.ONE);
         this.comercialDAOimpl.create(comercial);
         Optional<Comercial> c=comercialDAOimpl.find(comercial.getId());
         Assertions.assertTrue(c.isPresent()&&c.get().getId()==comercial.getId());
