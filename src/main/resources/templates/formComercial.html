@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:insert="fragments/general.html :: form">
-    <title>Comercial</title>
+    <title th:text="#{comercial}">Comercial</title>
 </head>
 <body>
-<h1 th:text="${#strings.capitalize(action)}+' Comercial'" >Title</h1>
+<h1 th:text="#{'boton.'+${action}}+' '+#{comercial}">Title</h1>
 <!-- formulario de comercial usado para editar y crear según la accion que llega   -->
 <form th:action="@{/comerciales/__${action}__}" th:method="post" th:object="${comercial}">
     <input th:type="hidden" th:field="*{id}" required/>
-    <label>Nombre*: </label><input th:type="text" th:field="*{nombre}" />
+    <label th:text="#{nombre}+'*'">Nombre*: </label><input th:type="text" th:field="*{nombre}"/>
     <ul th:if="${#fields.hasErrors('nombre')}">
         <li th:each="err : ${#fields.errors('nombre')}" th:text="${err}" class="error" />
     </ul>
-    <label>Apellido1*: </label><input th:type="text" th:field="*{apellido1}" />
+    <label th:text="#{apellido1}+'*'">Apellido1*: </label><input th:type="text" th:field="*{apellido1}"/>
     <ul th:if="${#fields.hasErrors('apellido1')}">
         <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error" />
     </ul>
-    <label>Apellido2: </label><input th:type="text" th:field="*{apellido2}"/>
+    <label th:text="#{apellido2}+'*'">Apellido2: </label><input th:type="text" th:field="*{apellido2}"/>
     <ul th:if="${#fields.hasErrors('apellido2')}">
         <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error" />
     </ul>
-    <label>Categoría*: </label><input th:type="number" th:step="0.01" th:field="*{comision}" />
+    <label th:text="#{comision}+'*'">Comision*: </label><input th:type="number" th:step="0.01" th:field="*{comision}" />
     <ul th:if="${#fields.hasErrors('comision')}">
         <li th:each="err : ${#fields.errors('comision')}" th:text="${err}" class="error" />
     </ul>
-    <input type="submit" value="Aceptar">
+    <input type="submit" th:value="#{boton.aceptar}">
 </form>
 </body>
 </html>

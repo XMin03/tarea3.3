@@ -1,27 +1,27 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/general.html :: style">
-    <title>Clientes</title>
+    <title th:text="#{cliente.plural}">Clientes</title>
 </head>
 <body>
 <!-- nav    -->
 <nav th:insert="fragments/general.html::nav"></nav>
 <!-- titulo    -->
-    <h1>Clientes</h1>
+    <h1 th:text="#{cliente.plural}">Clientes</h1>
 <!-- CRUD table    -->
     <table>
         <!-- header table    -->
         <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Apellido1</th>
-            <th>Apellido1</th>
-            <th>Ciudad</th>
-            <th>Categoría</th>
+            <th th:text="#{id}">ID</th>
+            <th th:text="#{nombre}">Nombre</th>
+            <th th:text="#{apellido1}">Apellido1</th>
+            <th th:text="#{apellido2}">Apellido2</th>
+            <th th:text="#{ciudad}">Ciudad</th>
+            <th th:text="#{categoria}">Categoría</th>
             <!-- create    -->
             <th>
                 <form th:action="@{/clientes/crear}">
-                    <input type="submit" value="Crear">
+                    <input type="submit" th:value="#{boton.crear}">
                 </form>
             </th>
         </tr>
@@ -37,25 +37,25 @@
             <td>
                 <!-- detail    -->
                 <form th:action="@{/clientes/__${cliente.id}__}" style="display: inline;">
-                    <input type="submit" value="Ver Detalle" />
+                    <input type="submit" th:value="#{boton.detalle}" />
                 </form>
                 <!-- editar    -->
                 <form th:action="@{/clientes/editar/}+${cliente.id}" style="display: inline;">
-                    <input type="submit" value="Editar" />
+                    <input type="submit" th:value="#{boton.editar}" />
                 </form>
                 <!-- borrar    -->
                 <!-- boton para mostrar el div a seguida    -->
-                <button type="button" th:id="cliente+${cliente.id}" onclick="mostrarConfirmacion(this)">Eliminar</button>
+                <button type="button" th:id="cliente+${cliente.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
                 <!-- venta con mensaje de confirmacion    -->
                 <div th:id="confirmacion-cliente+${cliente.id}" class="confirmacion" style="display: none;">
                     <div class="confirmacion-contenido">
                         <!-- pregunta    -->
-                        <p>Seguro que quieres borrar?</p>
+                        <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
                         <!-- cancelar    -->
-                        <button th:id="cliente+${cliente.id}" onclick="cerrarConfirmacion(this)">Cancelar</button>
+                        <button th:id="cliente+${cliente.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
                         <!-- formulario con el input para borrar    -->
                         <form th:action="@{/clientes/borrar/__${cliente.id}__}" method="post" style="display: inline;">
-                            <input type="submit" value="Confirmar" />
+                            <input type="submit" th:value="#{boton.confirmar}" />
                         </form>
                     </div>
                 </div>
