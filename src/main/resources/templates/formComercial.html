@@ -16,11 +16,11 @@
     <ul th:if="${#fields.hasErrors('apellido1')}">
         <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error" />
     </ul>
-    <label th:text="#{apellido2}+'*'">Apellido2: </label><input th:type="text" th:field="*{apellido2}"/>
+    <label th:text="#{apellido2}">Apellido2: </label><input th:type="text" th:field="*{apellido2}"/>
     <ul th:if="${#fields.hasErrors('apellido2')}">
         <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error" />
     </ul>
-    <label th:text="#{comision}+'*'">Comision*: </label><input th:type="number" th:step="0.01" th:field="*{comision}" />
+    <label th:text="#{comision}+'*'">Comision*: </label><input th:type="number" th:step="0.001" th:field="*{comision}" />
     <ul th:if="${#fields.hasErrors('comision')}">
         <li th:each="err : ${#fields.errors('comision')}" th:text="${err}" class="error" />
     </ul>

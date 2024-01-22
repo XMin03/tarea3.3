@@ -16,7 +16,7 @@
     <ul th:if="${#fields.hasErrors('apellido1')}">
         <li th:each="err : ${#fields.errors('apellido1')}" th:text="${err}" class="error" />
     </ul>
-    <label th:text="#{apellido2}+'*'">Apellido2: </label><input th:type="text" th:field="*{apellido2}"/>
+    <label th:text="#{apellido2}">Apellido2: </label><input th:type="text" th:field="*{apellido2}"/>
     <ul th:if="${#fields.hasErrors('apellido2')}">
         <li th:each="err : ${#fields.errors('apellido2')}" th:text="${err}" class="error" />
     </ul>
@@ -27,6 +27,10 @@
     <label th:text="#{categoria}+'*'">Categoría*: </label><input th:type="number" th:field="*{categoria}"/>
     <ul th:if="${#fields.hasErrors('categoria')}">
         <li th:each="err : ${#fields.errors('categoria')}" th:text="${err}" class="error" />
+    </ul>
+    <label>Email: </label><input th:type="text" th:field="*{email}"/>
+    <ul th:if="${#fields.hasErrors('email')}">
+        <li th:each="err : ${#fields.errors('email')}" th:text="${err}" class="error" />
     </ul>
     <input type="submit" th:value="#{boton.aceptar}">
 </form>

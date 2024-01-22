@@ -50,9 +50,10 @@ public class PedidoController {
      * @return
      */
     @PostMapping("/comerciales/{id_comercial}/pedidos/crear")
-    public String submitCrearPedido(Model model,@Valid @ModelAttribute Pedido c, @PathVariable int id_comercial, BindingResult bindingResult) {
+    public String submitCrearPedido(Model model,@Valid @ModelAttribute Pedido c,  BindingResult bindingResult, @PathVariable int id_comercial) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("pedido", c);
+            model.addAttribute("clientes",clienteService.listAll());
             return "formPedido";
         }
         pedidoService.create(c);
@@ -88,9 +89,11 @@ public class PedidoController {
      * @return
      */
     @PostMapping("/comerciales/{id_comercial}/pedidos/editar")
-    public String submitEditarPedido(Model model, @PathVariable int id_comercial, @Valid @ModelAttribute Pedido p, BindingResult bindingResult){
+    public String submitEditarPedido(Model model, @Valid @ModelAttribute Pedido p, BindingResult bindingResult, @PathVariable int id_comercial){
         if (bindingResult.hasErrors()) {
             model.addAttribute("pedido", p);
+            model.addAttribute("clientes",clienteService.listAll());
+            model.addAttribute("comerciales",comercialService.listAll());
             return "editarPedido";
         }
         pedidoService.update(p);

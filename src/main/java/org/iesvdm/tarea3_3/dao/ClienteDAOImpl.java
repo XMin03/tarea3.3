@@ -24,15 +24,16 @@ public class ClienteDAOImpl implements DAO<Cliente>{
     public void create_SIN_RECARGA_DE_ID(Cliente cliente) {
         jdbcTemplate.update("""
                                INSERT INTO cliente
-                               (nombre, apellido1, apellido2, ciudad, categoría)
+                               (nombre, apellido1, apellido2, ciudad, categoría,email)
                                VALUE
-                               (?, ?, ?, ?, ?)
+                               (?, ?, ?, ?, ?,?)
                                """
                 , cliente.getNombre()
                 , cliente.getApellido1()
                 , cliente.getApellido2()
                 , cliente.getCiudad()
-                , cliente.getCategoria());
+                , cliente.getCategoria()
+                ,cliente.getEmail());
 
 
         //NO SE ACTUALIZA EL ID AUTO_INCREMENT DE MYSQL EN EL BEAN DE CLIENTE
@@ -43,9 +44,9 @@ public class ClienteDAOImpl implements DAO<Cliente>{
             PreparedStatement ps = connection
                     .prepareStatement("""
                                INSERT INTO cliente
-                               (nombre, apellido1, apellido2, ciudad, categoría)
+                               (nombre, apellido1, apellido2, ciudad, categoría,email)
                                VALUE
-                               (?, ?, ?, ?, ?)
+                               (?, ?, ?, ?, ?,?)
                                """, Statement.RETURN_GENERATED_KEYS);
             int idx = 1;
             ps.setString(idx++, cliente.getNombre());
@@ -53,6 +54,7 @@ public class ClienteDAOImpl implements DAO<Cliente>{
             ps.setString(idx++, cliente.getApellido2());
             ps.setString(idx++, cliente.getCiudad());
             ps.setInt(idx++, cliente.getCategoria());
+            ps.setString(idx++, cliente.getEmail());
             return ps;
         }, keyHolder);
         //SE ACTUALIZA EL ID AUTO_INCREMENT DE MYSQL EN EL BEAN DE CLIENTE MEDIANTE EL KEYHOLDER
@@ -80,7 +82,7 @@ public class ClienteDAOImpl implements DAO<Cliente>{
     @Override
     public void create(Cliente cliente) {
         String insert= """
-                INSERT INTO cliente (nombre,apellido1,apellido2,ciudad,categoría)VALUES(?,?,?,?,?)
+                INSERT INTO cliente (nombre,apellido1,apellido2,ciudad,categoría,email)VALUES(?,?,?,?,?,?)
                 """;
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rows=jdbcTemplate.update(con -> {
@@ -90,7 +92,8 @@ public class ClienteDAOImpl implements DAO<Cliente>{
             ps.setString(idx++, cliente.getApellido1());
             ps.setString(idx++, cliente.getApellido2());
             ps.setString(idx++, cliente.getCiudad());
-            ps.setInt(idx, cliente.getCategoria());
+            ps.setInt(idx++, cliente.getCategoria());
+            ps.setString(idx, cliente.getEmail());
             return ps;
         },keyHolder);
         cliente.setId(keyHolder.getKey().intValue());
@@ -109,7 +112,8 @@ public class ClienteDAOImpl implements DAO<Cliente>{
                         rs.getString("apellido1"),
                         rs.getString("apellido2"),
                         rs.getString("ciudad"),
-                        rs.getInt("categoría")
+                        rs.getInt("categoría"),
+                        rs.getString("email")
                         )
         );
         log.info("Devueltos {} registros.", clientes.size());
@@ -129,7 +133,8 @@ public class ClienteDAOImpl implements DAO<Cliente>{
                         rs.getString("apellido1"),
                         rs.getString("apellido2"),
                         rs.getString("ciudad"),
-                        rs.getInt("categoría"))
+                        rs.getInt("categoría"),
+                        rs.getString("email"))
                 , id);
         if (c != null) {
             return Optional.of(c);}
@@ -144,12 +149,13 @@ public class ClienteDAOImpl implements DAO<Cliente>{
      */
     @Override
     public void update(Cliente cliente) {
-        int rows=jdbcTemplate.update("update cliente set nombre=?,apellido1=?,apellido2=?,ciudad=?,categoría=? where id=?",
+        int rows=jdbcTemplate.update("update cliente set nombre=?,apellido1=?,apellido2=?,ciudad=?,categoría=?,email=? where id=?",
                 cliente.getNombre(),
                 cliente.getApellido1(),
                 cliente.getApellido2(),
                 cliente.getCiudad(),
                 cliente.getCategoria(),
+                cliente.getEmail(),
                 cliente.getId());
         log.info("Update de Cliente con {} registros actualizados.", rows);
     }

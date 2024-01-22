@@ -4,29 +4,29 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pedido {
     /*parametros de la base de datos*/
     int id;
-    @NotNull
-    @NotNull(message = "Total no puede ser nulo.")
-    @Min(value = 0,message = "Minimo {value} ")
+    @NotNull(message = "{total} {no.nulo}.")
+    @Min(value = 0,message = "{minimo} {value}.")
     double total;
 
-    @NotNull(message = "Fecha no puede ser nulo.")
-    @NotEmpty(message = "fecha vacia")
+    @NotNull(message = "{fecha} {no.nulo}.")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date fecha;
 
-    @NotNull(message = "Id_cliente no puede ser nulo.")
-    @Min(value = 1,message = "Minimo {value} ")
+    @NotNull(message = "{id.cliente} {no.nulo}.")
+    @Min(value = 1,message = "{minimo} {value}.")
     int id_cliente;
 
-    @NotNull(message = "Id_comercial no puede ser nulo.")
-    @Min(value = 1,message = "Minimo {value} ")
+    @NotNull(message = "{id.comercial} {no.nulo}.")
+    @Min(value = 1,message = "{minimo} {value}.")
     int id_comercial;
 
 }

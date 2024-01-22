@@ -30,7 +30,7 @@ public class PedidoDAOImpl implements PedidoDAO{
             PreparedStatement ps = con.prepareStatement(sql,new String[]{"id"});
                 int idx = 1;
                 ps.setDouble(idx++,pedido.getTotal());
-                ps.setDate(idx++,pedido.getFecha());
+                ps.setDate(idx++,new Date(pedido.getFecha().getTime()));
                 ps.setInt(idx++,pedido.getId_cliente());
                 ps.setInt(idx,pedido.getId_comercial());
                 return ps;

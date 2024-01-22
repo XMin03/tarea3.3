@@ -22,7 +22,8 @@ class Tarea33ApplicationTestsCliente {
                 , "Martín"
                 , "Tejero"
                 , "Málaga"
-                , 1);
+                , 1
+        ,"");
         this.clienteDAOImpl.create_CON_RECARGA_DE_ID_POR_PS(cliente);
         Assertions.assertTrue(cliente.getId()>0);
         System.out.println("ID AUTO_INCREMENT:" + cliente.getId());
@@ -34,7 +35,8 @@ class Tarea33ApplicationTestsCliente {
                 , "Martín"
                 , "Tejero"
                 , "Málaga"
-                , 1);
+                , 1
+                ,"");
         this.clienteDAOImpl.create_CON_RECARGA_DE_ID_POR_SIMPLEJDBCINSERT(cliente);
         Assertions.assertTrue(cliente.getId()>0);
         System.out.println("ID AUTO_INCREMENT:" + cliente.getId());
@@ -54,7 +56,8 @@ class Tarea33ApplicationTestsCliente {
                 , "Martín"
                 , "Tejero"
                 , "Málaga"
-                , 1);
+                , 1
+                ,"");
         this.clienteDAOImpl.create_CON_RECARGA_DE_ID_POR_SIMPLEJDBCINSERT(cliente);
         cliente.setNombre("A");
         cliente.setApellido1("a");
@@ -75,7 +78,8 @@ class Tarea33ApplicationTestsCliente {
                 , "Martín"
                 , "Tejero"
                 , "Málaga"
-                , 1);
+                , 1
+                ,"");
         this.clienteDAOImpl.create_CON_RECARGA_DE_ID_POR_SIMPLEJDBCINSERT(cliente);
         List<Cliente> antes=clienteDAOImpl.getAll();
         clienteDAOImpl.delete(cliente.getId());
@@ -89,7 +93,8 @@ class Tarea33ApplicationTestsCliente {
                 , "Martín"
                 , "Tejero"
                 , "Málaga"
-                , 1);
+                , 1
+                ,"");
         this.clienteDAOImpl.create_CON_RECARGA_DE_ID_POR_SIMPLEJDBCINSERT(cliente);
         Optional<Cliente> c=clienteDAOImpl.find(cliente.getId());
         Assertions.assertTrue(c.isPresent()&&c.get().getId()==cliente.getId());

@@ -18,6 +18,8 @@
             <th th:text="#{apellido2}">Apellido2</th>
             <th th:text="#{ciudad}">Ciudad</th>
             <th th:text="#{categoria}">Categoría</th>
+            <th>Email</th>
+
             <!-- create    -->
             <th>
                 <form th:action="@{/clientes/crear}">
@@ -33,6 +35,7 @@
             <td th:text="${cliente.apellido2 ?: '&nbsp;'}">apellido2</td>
             <td th:text="${cliente.ciudad}">ciudad</td>
             <td th:text="${cliente.categoria}">categoría</td>
+            <td th:text="${cliente.email}">email</td>
             <!-- actions    -->
             <td>
                 <!-- detail    -->
