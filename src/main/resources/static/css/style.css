@@ -52,6 +52,20 @@ table tr th button:hover, table tr th input[type=submit]:hover, table tr td butt
 table tr:nth-child(odd) {
   background-color: beige;
 }
+table tr.yellow {
+  background-color: yellow;
+}
+table tr.yellow:hover:after {
+  content: "Minimo";
+  position: absolute;
+}
+table tr.green {
+  background-color: green;
+}
+table tr.green:hover:after {
+  content: "Maximo";
+  position: absolute;
+}
 
 .confirmacion {
   display: none;

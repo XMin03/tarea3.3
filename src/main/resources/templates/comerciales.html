@@ -61,7 +61,7 @@
             </form>
         </th>
     </tr>
-    <tr th:each="pedido:${listaPedido.keySet()}">
+    <tr th:each="pedido:${listaPedido.keySet()}" th:class="${listaComerciales.max==pedido.total}?green:(${listaComerciales.min==pedido.total}?yellow:'')">
         <td th:text="${pedido.id}">0</td>
         <td th:text="${pedido.total}">total</td>
         <td th:text="${pedido.fecha}">fecha</td>
@@ -84,7 +84,12 @@
             </div>
         </td>
     </tr>
+    <tr>
+        <td th:text="'TOT: '+${listaComerciales.tot}">tot</td>
+        <td th:text="#{media}+': '+${listaComerciales.media}">media</td>
+    </tr>
 </table>
+
 <script src="/js/script.js"></script>
 </body>
 </html>

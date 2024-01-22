@@ -5,6 +5,7 @@
   padding: 0;
   text-align: center;
 }
+
 h1{
   padding: 30px;
 }
@@ -48,6 +49,20 @@ table{
     }
     &:nth-child(odd){
       background-color: beige;
+    }
+    &.yellow{
+      background-color: yellow;
+      &:hover:after{
+        content: "Minimo";
+        position: absolute;
+      }
+    }
+    &.green{
+      background-color: green;
+      &:hover:after{
+        content: "Maximo";
+        position: absolute;
+      }
     }
   }
 }

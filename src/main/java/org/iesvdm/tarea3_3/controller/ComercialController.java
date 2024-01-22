@@ -1,8 +1,11 @@
 package org.iesvdm.tarea3_3.controller;
 
 import jakarta.validation.Valid;
+import org.iesvdm.tarea3_3.model.Cliente;
 import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Pedido;
+import org.iesvdm.tarea3_3.model.dto.ComercialDTO;
+import org.iesvdm.tarea3_3.service.ClienteService;
 import org.iesvdm.tarea3_3.service.ComercialService;
 import org.iesvdm.tarea3_3.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 @Controller
 public class ComercialController {
@@ -26,7 +32,8 @@ public class ComercialController {
     private ComercialService comercialService;
     @Autowired
     private PedidoService pedidoService;
-
+    @Autowired
+    private ClienteService clienteService;
     /**
      * Lista todos los comerciales y se va a la pagina del crud de comercial que tambien es el index de comercial
      * @param model
@@ -47,9 +54,9 @@ public class ComercialController {
      */
     @GetMapping("/comerciales/{id}")
     public String detalle(Model model,@PathVariable int id){
-        Optional<Comercial> c=comercialService.find(id);
-        if (c.isPresent()){
-            model.addAttribute("listaComerciales", c.get());
+        Optional<Comercial> comercial=comercialService.find(id);
+        if (comercial.isPresent()){
+            Comercial c=comercial.get();
             //obtiene todos los pedidos
             List<Pedido> p= pedidoService.listAll(id);
             //crea una mapa de pedido y nombre cliente
@@ -57,6 +64,18 @@ public class ComercialController {
             //put en la mapa
             p.stream().forEach(pedido->map.put(pedido, pedidoService.toName(pedido.getId_cliente())));
             model.addAttribute("listaPedido", map);
+            List<Cliente> clientes=p.stream()
+                    .collect(groupingBy(Pedido::getId, summingDouble(Pedido::getTotal)))
+                    .entrySet()
+                    .stream()
+                    .sorted(((o1, o2) -> (int)(o2.getValue()-o1.getValue())))
+                    .map(Map.Entry::getKey)
+                    .map(integer -> clienteService.find(integer).get())
+                    .toList();
+            model.addAttribute("listaClientes", clientes);
+            //ComercialDTO
+            ComercialDTO cdto=new ComercialDTO(c.getId(),c.getNombre(),c.getApellido1(),c.getApellido2(),c.getComision(),p);
+            model.addAttribute("listaComerciales", cdto);
             return "comerciales";
         } else {
             return "redirect:/comerciales";
