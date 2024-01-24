@@ -64,13 +64,11 @@ public class ComercialController {
             //put en la mapa
             p.stream().forEach(pedido->map.put(pedido, pedidoService.toName(pedido.getId_cliente())));
             model.addAttribute("listaPedido", map);
-            List<Cliente> clientes=p.stream()
-                    .collect(groupingBy(Pedido::getId, summingDouble(Pedido::getTotal)))
+            List<Map.Entry<Cliente,Double>> clientes=p.stream()
+                    .collect(groupingBy(pedido -> clienteService.find(pedido.getId_cliente()).get(), summingDouble(Pedido::getTotal)))
                     .entrySet()
                     .stream()
                     .sorted(((o1, o2) -> (int)(o2.getValue()-o1.getValue())))
-                    .map(Map.Entry::getKey)
-                    .map(integer -> clienteService.find(integer).get())
                     .toList();
             model.addAttribute("listaClientes", clientes);
             //ComercialDTO

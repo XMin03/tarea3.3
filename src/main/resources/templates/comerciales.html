@@ -89,7 +89,29 @@
         <td th:text="#{media}+': '+${listaComerciales.media}">media</td>
     </tr>
 </table>
-
+<table th:if="${listaClientes}">
+    <h1 th:text="#{cliente.plural}">Clientes</h1>
+    <tr>
+        <th th:text="#{id}">ID</th>
+        <th th:text="#{nombre}">Nombre</th>
+        <th th:text="#{apellido1}">Apellido1</th>
+        <th th:text="#{apellido2}">Apellido2</th>
+        <th th:text="#{ciudad}">Ciudad</th>
+        <th th:text="#{categoria}">Categoria</th>
+        <th>Email</th>
+        <th th:text="#{total}"></th>
+    </tr>
+    <tr th:each="clienteTotal:${listaClientes}">
+        <td th:text="${clienteTotal.getKey().id}">0</td>
+        <td th:text="${clienteTotal.getKey().nombre}">nombre</td>
+        <td th:text="${clienteTotal.getKey().apellido1}">apellido1</td>
+        <td th:text="${clienteTotal.getKey().apellido2 ?: '&nbsp;'}">apellido2</td>
+        <td th:text="${clienteTotal.getKey().ciudad}">ciudad</td>
+        <td th:text="${clienteTotal.getKey().categoria}">categoría</td>
+        <td th:text="${clienteTotal.getKey().email}">email</td>
+        <td th:text="${clienteTotal.getValue()}">tot</td>
+    </tr>
+</table>
 <script src="/js/script.js"></script>
 </body>
 </html>
