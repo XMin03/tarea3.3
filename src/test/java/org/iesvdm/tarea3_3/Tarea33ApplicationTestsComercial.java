@@ -30,7 +30,7 @@ public class Tarea33ApplicationTestsComercial {
         comercial.setNombre("A");
         comercial.setApellido1("a");
         comercial.setApellido2("B");
-        comercial.setComision(BigDecimal.TWO);
+        comercial.setComision(BigDecimal.ZERO);
         comercialDAOimpl.update(comercial);
         Comercial c=comercialDAOimpl.find(comercial.getId()).get();
         Assertions.assertEquals(c, comercial);

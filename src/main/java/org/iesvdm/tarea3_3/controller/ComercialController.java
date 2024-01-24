@@ -5,6 +5,7 @@ import org.iesvdm.tarea3_3.model.Cliente;
 import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Pedido;
 import org.iesvdm.tarea3_3.model.dto.ComercialDTO;
+import org.iesvdm.tarea3_3.model.mapstruct.ComercialMapper;
 import org.iesvdm.tarea3_3.service.ClienteService;
 import org.iesvdm.tarea3_3.service.ComercialService;
 import org.iesvdm.tarea3_3.service.PedidoService;
@@ -34,6 +35,8 @@ public class ComercialController {
     private PedidoService pedidoService;
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private ComercialMapper comercialMapper;
     /**
      * Lista todos los comerciales y se va a la pagina del crud de comercial que tambien es el index de comercial
      * @param model
@@ -58,12 +61,13 @@ public class ComercialController {
         if (comercial.isPresent()){
             Comercial c=comercial.get();
             //obtiene todos los pedidos
-            List<Pedido> p= pedidoService.listAll(id);
+            List<Pedido> p= pedidoService.listAllByComercial(id);
             //crea una mapa de pedido y nombre cliente
             Map<Pedido,String> map=new HashMap<>();
             //put en la mapa
             p.stream().forEach(pedido->map.put(pedido, pedidoService.toName(pedido.getId_cliente())));
             model.addAttribute("listaPedido", map);
+            //<Cliente,Total>
             List<Map.Entry<Cliente,Double>> clientes=p.stream()
                     .collect(groupingBy(pedido -> clienteService.find(pedido.getId_cliente()).get(), summingDouble(Pedido::getTotal)))
                     .entrySet()
@@ -72,7 +76,7 @@ public class ComercialController {
                     .toList();
             model.addAttribute("listaClientes", clientes);
             //ComercialDTO
-            ComercialDTO cdto=new ComercialDTO(c.getId(),c.getNombre(),c.getApellido1(),c.getApellido2(),c.getComision(),p);
+            ComercialDTO cdto=comercialMapper.comercialAComercialDTO(c,p);
             model.addAttribute("listaComerciales", cdto);
             return "comerciales";
         } else {

@@ -1,11 +1,15 @@
 package org.iesvdm.tarea3_3.model.dto;
 
 import jakarta.validation.constraints.*;
-import lombok.Data;
 import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Pedido;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 
@@ -23,5 +27,6 @@ public class ComercialDTO extends Comercial {
         media=stats.getAverage();
         max=stats.getMax();
         min=stats.getMin();
+
     }
 }

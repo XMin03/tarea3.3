@@ -67,6 +67,16 @@ public class PedidoDAOImpl implements PedidoDAO{
         log.info("Devueltos {} registros.", p.size());
         return p;
     }
+    public List<Pedido> getAllByCliente(int id){
+        List<Pedido> p= jdbcTemplate.query("select * from pedido where id_cliente=?",((rs, rowNum) -> new Pedido(
+                rs.getInt("id"),
+                rs.getDouble("total"),
+                rs.getDate("fecha"),
+                rs.getInt("id_cliente"),
+                rs.getInt("id_comercial"))),id);
+        log.info("Devueltos {} registros.", p.size());
+        return p;
+    }
 
     @Override
     public Optional<Pedido> find(int id) {

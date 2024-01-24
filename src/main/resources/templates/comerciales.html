@@ -4,8 +4,8 @@
     <title th:text="#{comercial.plural}">Comerciales</title>
 </head>
 <body>
-<!-- mismo que cliente pero con otra tabla de pedido que se mostrará cuando le ha pasado la lista de pedido que habrá solo cuando mostra los detalles de comercial    -->
 <nav th:insert="fragments/general.html :: nav"></nav>
+<!-- Tabla comercial-->
 <h1 th:text="#{comercial.plural}">Comercial</h1>
 <table>
     <tr>
@@ -47,6 +47,7 @@
         </td>
     </tr>
 </table>
+<!-- Tabla Pedido-->
 <table th:if="${listaPedido}">
     <h1 th:text="#{pedido.plural}">Pedidos</h1>
     <tr>
@@ -89,6 +90,7 @@
         <td th:text="#{media}+': '+${listaComerciales.media}">media</td>
     </tr>
 </table>
+<!-- Tabla Cliente-->
 <table th:if="${listaClientes}">
     <h1 th:text="#{cliente.plural}">Clientes</h1>
     <tr>

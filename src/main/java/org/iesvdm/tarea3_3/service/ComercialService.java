@@ -1,10 +1,7 @@
 package org.iesvdm.tarea3_3.service;
 
 import org.iesvdm.tarea3_3.dao.DAO;
-import org.iesvdm.tarea3_3.dao.PedidoDAO;
-import org.iesvdm.tarea3_3.model.Cliente;
 import org.iesvdm.tarea3_3.model.Comercial;
-import org.iesvdm.tarea3_3.model.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

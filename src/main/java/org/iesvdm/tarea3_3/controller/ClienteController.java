@@ -2,7 +2,12 @@ package org.iesvdm.tarea3_3.controller;
 
 import jakarta.validation.Valid;
 import org.iesvdm.tarea3_3.model.Cliente;
+import org.iesvdm.tarea3_3.model.Pedido;
+import org.iesvdm.tarea3_3.model.dto.ClienteDTO;
+import org.iesvdm.tarea3_3.model.dto.ComercialDTO;
+import org.iesvdm.tarea3_3.model.mapstruct.ClienteMapper;
 import org.iesvdm.tarea3_3.service.ClienteService;
+import org.iesvdm.tarea3_3.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +25,10 @@ import java.util.Optional;
 public class ClienteController {
     @Autowired
     private ClienteService clienteService;
-
+    @Autowired
+    private PedidoService pedidoService;
+    @Autowired
+    private ClienteMapper clienteMapper;
     /**
      * Lista todos los clientes y se va a la pagina del crud de cliente que tambien es el index de cliente
      * @param model
@@ -46,6 +54,9 @@ public class ClienteController {
         if (c.isPresent()){
             //y hace los mismo que listar pero con solo ese cliente
             model.addAttribute("listaClientes", c.get());
+
+            List<Pedido> p=pedidoService.listAllByCliente(id);
+            List<ClienteDTO> cdto=p.stream().map(pedido->clienteMapper.createClienteDTO(pedido.getId_comercial(),p)).toList();
             return "clientes";
         } else {
             //si no encuentra vuelve a la pagina principal que no lo hace

@@ -15,9 +15,13 @@ public class PedidoService {
     public void create(Pedido p){
         pedidoDAO.create(p);
     }
-    public List<Pedido> listAll(int id){
+    public List<Pedido> listAllByComercial(int id){
         return pedidoDAO.getAllByComercial(id);
     }
+    public List<Pedido> listAllByCliente(int id){
+        return pedidoDAO.getAllByCliente(id);
+    }
+
     public Optional<Pedido> findPedido(int id){
         return pedidoDAO.find(id);
     }
