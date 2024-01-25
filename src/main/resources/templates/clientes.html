@@ -1,4 +1,4 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/ddiv class=col/xhtml1-strict-thymeleaf-4.ddiv class=col">
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments/general.html :: style">
     <title th:text="#{cliente.plural}">Clientes</title>
@@ -7,84 +7,85 @@
 <!-- nav    -->
 <nav th:insert="fragments/general.html::nav"></nav>
 <!-- titulo    -->
-    <h1 th:text="#{cliente.plural}">Clientes</h1>
-<!-- CRUD table    -->
-    <table>
-        <!-- header table    -->
-        <tr>
-            <th th:text="#{id}">ID</th>
-            <th th:text="#{nombre}">Nombre</th>
-            <th th:text="#{apellido1}">Apellido1</th>
-            <th th:text="#{apellido2}">Apellido2</th>
-            <th th:text="#{ciudad}">Ciudad</th>
-            <th th:text="#{categoria}">Categoría</th>
-            <th>Email</th>
+<h1 th:text="#{cliente.plural}">Clientes</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-1" th:text="#{id}">ID</div>
+        <div class="col-1" th:text="#{nombre}">Nombre</div>
+        <div class="col-1" th:text="#{apellido1}">Apellido1</div>
+        <div class="col-1" th:text="#{apellido2}">Apellido2</div>
+        <div class="col-1" th:text="#{ciudad}">Ciudad</div>
+        <div class="col-1" th:text="#{categoria}">Categoría</div>
+        <div class="col-2">Email</div>
 
-            <!-- create    -->
-            <th>
-                <form th:action="@{/clientes/crear}">
-                    <input type="submit" th:value="#{boton.crear}">
-                </form>
-            </th>
-        </tr>
-        <!-- listAll    -->
-        <tr th:each="cliente:${listaClientes}">
-            <td th:text="${cliente.id}">0</td>
-            <td th:text="${cliente.nombre}">nombre</td>
-            <td th:text="${cliente.apellido1}">apellido1</td>
-            <td th:text="${cliente.apellido2 ?: '&nbsp;'}">apellido2</td>
-            <td th:text="${cliente.ciudad}">ciudad</td>
-            <td th:text="${cliente.categoria}">categoría</td>
-            <td th:text="${cliente.email}">email</td>
-            <!-- actions    -->
-            <td>
-                <!-- detail    -->
-                <form th:action="@{/clientes/__${cliente.id}__}" style="display: inline;">
-                    <input type="submit" th:value="#{boton.detalle}" />
-                </form>
-                <!-- editar    -->
-                <form th:action="@{/clientes/editar/}+${cliente.id}" style="display: inline;">
-                    <input type="submit" th:value="#{boton.editar}" />
-                </form>
-                <!-- borrar    -->
-                <!-- boton para mostrar el div a seguida    -->
-                <button type="button" th:id="cliente+${cliente.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
-                <!-- venta con mensaje de confirmacion    -->
-                <div th:id="confirmacion-cliente+${cliente.id}" class="confirmacion" style="display: none;">
-                    <div class="confirmacion-contenido">
-                        <!-- pregunta    -->
-                        <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
-                        <!-- cancelar    -->
-                        <button th:id="cliente+${cliente.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
-                        <!-- formulario con el input para borrar    -->
-                        <form th:action="@{/clientes/borrar/__${cliente.id}__}" method="post" style="display: inline;">
-                            <input type="submit" th:value="#{boton.confirmar}" />
-                        </form>
-                    </div>
+        <!-- create    -->
+        <div class="col-4">
+            <form th:action="@{/clientes/crear}">
+                <input class="btn btn-primary" type="submit" th:value="#{boton.crear}">
+            </form>
+        </div>
+    </div>
+    <!-- listAll    -->
+    <div class="row" th:each="cliente:${listaClientes}">
+        <div class="col-1" th:text="${cliente.id}">0</div>
+        <div class="col-1" th:text="${cliente.nombre}">nombre</div>
+        <div class="col-1" th:text="${cliente.apellido1}">apellido1</div>
+        <div class="col-1" th:text="${cliente.apellido2 ?: '&nbsp;'}">apellido2</div>
+        <div class="col-1" th:text="${cliente.ciudad}">ciudad</div>
+        <div class="col-1" th:text="${cliente.categoria}">categoría</div>
+        <div class="col-2" th:text="${cliente.email}">email</div>
+        <!-- actions    -->
+        <div class="col-4">
+            <!-- detail    -->
+            <form th:action="@{/clientes/__${cliente.id}__}" style="display: inline;">
+                <input class="btn btn-primary" type="submit" th:value="#{boton.detalle}" />
+            </form>
+            <!-- editar    -->
+            <form th:action="@{/clientes/editar/}+${cliente.id}" style="display: inline;">
+                <input class="btn btn-warning" type="submit" th:value="#{boton.editar}" />
+            </form>
+            <!-- borrar    -->
+            <!-- boton para mostrar el div a seguida    -->
+
+            <button class="btn btn-danger" type="button" th:id="cliente+${cliente.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
+            <!-- venta con mensaje de confirmacion    -->
+            <div th:id="confirmacion-cliente+${cliente.id}" class="confirmacion" style="display: none;">
+                <div class="confirmacion-contenido">
+                    <!-- pregunta    -->
+                    <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
+                    <!-- cancelar    -->
+                    <button class="btn btn-primary" th:id="cliente+${cliente.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
+                    <!-- formulario con el input para borrar    -->
+                    <form th:action="@{/clientes/borrar/__${cliente.id}__}" method="post" style="display: inline;">
+                        <input class="btn btn-danger" type="submit" th:value="#{boton.confirmar}" />
+                    </form>
                 </div>
-            </td>
-        </tr>
-    </table>
+            </div>
+        </div>
+    </div>
+</div>
 <!--table comercial -->
-    <table th:if="${listaComerciales}">
-        <h1 th:text="#{comercial.plural}">Comerciales</h1>
+<div th:if="${listaComerciales}">
+    <h1 th:text="#{comercial.plural}">Comerciales</h1>
+    <div class="container" >
         <!-- header table    -->
-        <tr>
-            <th th:text="#{id}">ID</th>
-            <th th:text="#{trimestre}">trimestre</th>
-            <th th:text="#{semestre}">semestre</th>
-            <th th:text="#{año}">año</th>
-            <th th:text="#{lustro}">lustro</th>
-        </tr>
+        <div class="row">
+            <div class="col" th:text="#{id}">ID</div>
+            <div class="col" th:text="#{trimestre}">trimestre</div>
+            <div class="col" th:text="#{semestre}">semestre</div>
+            <div class="col" th:text="#{año}">año</div>
+            <div class="col" th:text="#{lustro}">lustro</div>
+        </div>
         <!-- listAll    -->
-        <tr th:each="cdto:${listaComerciales}">
-            <td th:text="${cdto.id_comercial}">0</td>
-            <td th:text="${cdto.trimestre}">nombre</td>
-            <td th:text="${cdto.semestre ?: '&nbsp;'}">apellido2</td>
-            <td th:text="${cdto.año}">ciudad</td>
-            <td th:text="${cdto.lustro}">categoría</td>
-        </tr>
-    </table>
+        <div class="row" th:each="cdto:${listaComerciales}">
+            <div class="col" th:text="${cdto.id_comercial}">0</div>
+            <div class="col" th:text="${cdto.trimestre}">nombre</div>
+            <div class="col" th:text="${cdto.semestre ?: '&nbsp;'}">apellido2</div>
+            <div class="col" th:text="${cdto.año}">ciudad</div>
+            <div class="col" th:text="${cdto.lustro}">categoría</div>
+        </div>
+    </div>
+</div>
 <script src="/js/script.js"></script>
 </body>
 </html>

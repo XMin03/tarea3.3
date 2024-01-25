@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- fragment de bootstrap     -->
+<head th:fragment="bootstrap">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
 <!-- fragment con el link de style     -->
 <head th:fragment="style">
-    <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <th:block th:include="::bootstrap"></th:block>
 </head>
 <!-- fragment con el link de form     -->
 <head th:fragment="form">
-    <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{/css/form.css}">
+    <th:block th:include="::bootstrap"></th:block>
 </head>
 <body>
 <!-- fragment del nav     -->
@@ -19,8 +25,5 @@
     </ul>
 </nav>
 
-<script src="/js/jquery.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="/js/select2.js"></script>
 </body>
 </html>

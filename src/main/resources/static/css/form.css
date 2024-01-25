@@ -14,34 +14,4 @@ body {
   justify-content: center;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-form label {
-  margin-top: 10px;
-}
-form input {
-  border-bottom: black 1px solid;
-  margin-bottom: 5px;
-}
-form input[type=submit] {
-  padding: 10px;
-  border: black 1px solid;
-}
-form input[type=submit]:hover {
-  background-color: beige;
-}
-
-.select2-results ul {
-  background-color: white;
-}
-
-ul {
-  list-style: none;
-  background-color: red;
-  padding-left: 10px;
-  margin-bottom: 5px;
-}
-
 /*# sourceMappingURL=form.css.map */

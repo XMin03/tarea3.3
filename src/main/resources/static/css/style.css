@@ -33,36 +33,20 @@ nav ul li a:hover {
   background: gray;
 }
 
-table {
-  width: 90%;
-  margin: 0 auto;
-  border-collapse: collapse;
-}
-table tr th, table tr td {
-  padding: 20px;
-}
-table tr th button, table tr th input[type=submit], table tr td button, table tr td input[type=submit] {
-  border-radius: 50px;
-  padding: 10px;
-  background-color: aqua;
-}
-table tr th button:hover, table tr th input[type=submit]:hover, table tr td button:hover, table tr td input[type=submit]:hover {
-  background-color: aquamarine;
-}
-table tr:nth-child(odd) {
+.container .row:nth-child(odd) {
   background-color: beige;
 }
-table tr.yellow {
+.container .row.yellow {
   background-color: yellow;
 }
-table tr.yellow:hover:after {
+.container .row.yellow:hover:after {
   content: "Minimo";
   position: absolute;
 }
-table tr.green {
+.container .row.green {
   background-color: green;
 }
-table tr.green:hover:after {
+.container .row.green:hover:after {
   content: "Maximo";
   position: absolute;
 }

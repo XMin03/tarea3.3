@@ -7,113 +7,117 @@
 <nav th:insert="fragments/general.html :: nav"></nav>
 <!-- Tabla comercial-->
 <h1 th:text="#{comercial.plural}">Comercial</h1>
-<table>
-    <tr>
-        <th th:text="#{id}">ID</th>
-        <th th:text="#{nombre}">Nombre</th>
-        <th th:text="#{apellido1}">Apellido1</th>
-        <th th:text="#{apellido2}">Apellido2</th>
-        <th th:text="#{comision}">Comisión</th>
-        <th>
+<div class="container">
+    <div class="row">
+        <div class="col-1" th:text="#{id}">ID</div>
+        <div class="col-2" th:text="#{nombre}">Nombre</div>
+        <div class="col-2" th:text="#{apellido1}">Apellido1</div>
+        <div class="col-2" th:text="#{apellido2}">Apellido2</div>
+        <div class="col-1" th:text="#{comision}">Comisión</div>
+        <div class="col-4">
             <form th:action="@{/comerciales/crear}">
-                <input type="submit" th:value="#{boton.crear}">
+                <input class="btn btn-primary" type="submit" th:value="#{boton.crear}">
             </form>
-        </th>
-    </tr>
-    <tr th:each="comercial:${listaComerciales}">
-        <td th:text="${comercial.id}">0</td>
-        <td th:text="${comercial.nombre}">nombre</td>
-        <td th:text="${comercial.apellido1}">apellido1</td>
-        <td th:text="${comercial.apellido2 ?: '&nbsp;'}">apellido2</td>
-        <td th:text="${comercial.comision}">comision</td>
+        </div>
+    </div>
+    <div class="row" th:each="comercial:${listaComerciales}">
+        <div class="col-1" th:text="${comercial.id}">0</div>
+        <div class="col-2" th:text="${comercial.nombre}">nombre</div>
+        <div class="col-2" th:text="${comercial.apellido1}">apellido1</div>
+        <div class="col-2" th:text="${comercial.apellido2 ?: '&nbsp;'}">apellido2</div>
+        <div class="col-1" th:text="${comercial.comision}">comision</div>
 
-        <td>
+        <div class="col-4">
             <form th:action="@{/comerciales/__${comercial.id}__}" style="display: inline;">
-                <input type="submit" th:value="#{boton.detalle}" />
+                <input class="btn btn-primary" type="submit" th:value="#{boton.detalle}" />
             </form>
             <form th:action="@{/comerciales/editar/}+${comercial.id}" style="display: inline;">
-                <input type="submit" th:value="#{boton.editar}" />
+                <input class="btn btn-warning" type="submit" th:value="#{boton.editar}" />
             </form>
-            <button type="button" th:id="comercial+${comercial.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
+            <button type="button" class="btn btn-danger" th:id="comercial+${comercial.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
             <div th:id="confirmacion-comercial+${comercial.id}" class="confirmacion" style="display: none;">
                 <div class="confirmacion-contenido">
                     <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
-                    <button th:id="comercial+${comercial.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
+                    <button class="btn btn-primary" th:id="comercial+${comercial.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
                     <form th:action="@{/comerciales/borrar/__${comercial.id}__}" method="post" style="display: inline;">
-                        <input type="submit" th:value="#{boton.confirmar}" />
+                        <input class="btn btn-danger" type="submit" th:value="#{boton.confirmar}" />
                     </form>
                 </div>
             </div>
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+</div>
 <!-- Tabla Pedido-->
-<table th:if="${listaPedido}">
+<div th:if="${listaPedido}">
     <h1 th:text="#{pedido.plural}">Pedidos</h1>
-    <tr>
-        <th th:text="#{id}">ID</th>
-        <th th:text="#{total}">Total</th>
-        <th th:text="#{fecha}">Fecha</th>
-        <th th:text="#{id.cliente}">Id_cliente</th>
-        <th th:text="#{id.comercial}">Id_comercial</th>
-        <th>
-            <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/crear}">
-                <input type="submit" th:value="#{boton.crear}">
-            </form>
-        </th>
-    </tr>
-    <tr th:each="pedido:${listaPedido.keySet()}" th:class="${listaComerciales.max==pedido.total}?green:(${listaComerciales.min==pedido.total}?yellow:'')">
-        <td th:text="${pedido.id}">0</td>
-        <td th:text="${pedido.total}">total</td>
-        <td th:text="${pedido.fecha}">fecha</td>
-        <td><a th:href="@{/clientes/__${pedido.id_cliente}__}" th:text="${listaPedido.get(pedido)}">nombre_cliente</a></td>
-        <td th:text="${pedido.id_comercial}">id_comercial</td>
+    <div class="container" >
+        <div class="row">
+            <div class="col-1" th:text="#{id}">ID</div>
+            <div class="col-1" th:text="#{total}">Total</div>
+            <div class="col-1" th:text="#{fecha}">Fecha</div>
+            <div class="col-2" th:text="#{id.cliente}">Id_cliente</div>
+            <div class="col-2" th:text="#{id.comercial}">Id_comercial</div>
+            <div class="col">
+                <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/crear}">
+                    <input class="btn btn-primary" type="submit" th:value="#{boton.crear}">
+                </form>
+            </div>
+        </div>
+        <div th:each="pedido:${listaPedido.keySet()}" th:class="${listaComerciales.max==pedido.total}?green:(${listaComerciales.min==pedido.total}?yellow:'')" th:classappend="row">
+            <div class="col-1" th:text="${pedido.id}">0</div>
+            <div class="col-1" th:text="${pedido.total}">total</div>
+            <div class="col-1" th:text="${pedido.fecha}">fecha</div>
+            <div class="col-2"><a th:href="@{/clientes/__${pedido.id_cliente}__}" th:text="${listaPedido.get(pedido)}">nombre_cliente</a></div>
+            <div class="col-2" th:text="${pedido.id_comercial}">id_comercial</div>
 
-        <td>
-            <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/editar/}+${pedido.id}" style="display: inline;">
-                <input type="submit" th:value="#{boton.editar}" />
-            </form>
-            <button type="button" th:id="pedido+${pedido.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
-            <div th:id="confirmacion-pedido+${pedido.id}" class="confirmacion" style="display: none;">
-                <div class="confirmacion-contenido">
-                    <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
-                    <button th:id="pedido+${pedido.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
-                    <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;">
-                        <input type="submit" th:value="#{boton.confirmar}" />
-                    </form>
+            <div class="col">
+                <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/editar/}+${pedido.id}" style="display: inline;">
+                    <input class="btn btn-warning" type="submit" th:value="#{boton.editar}" />
+                </form>
+                <button type="button" class="btn btn-danger" th:id="pedido+${pedido.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
+                <div th:id="confirmacion-pedido+${pedido.id}" class="confirmacion" style="display: none;">
+                    <div class="confirmacion-contenido">
+                        <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
+                        <button class="btn btn-primary" th:id="pedido+${pedido.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
+                        <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;">
+                            <input class="btn btn-danger" type="submit" th:value="#{boton.confirmar}" />
+                        </form>
+                    </div>
                 </div>
             </div>
-        </td>
-    </tr>
-    <tr>
-        <td th:text="'TOT: '+${listaComerciales.tot}">tot</td>
-        <td th:text="#{media}+': '+${listaComerciales.media}">media</td>
-    </tr>
-</table>
-<!-- Tabla Cliente-->
-<table th:if="${listaClientes}">
+        </div>
+        <div class="row">
+            <div class="col" th:text="'TOT: '+${listaComerciales.tot}">tot</div>
+            <div class="col" th:text="#{media}+': '+${listaComerciales.media}">media</div>
+        </div>
+    </div>
+</div>
+<div th:if="${listaClientes}">
+    <!-- Tabla Cliente-->
     <h1 th:text="#{cliente.plural}">Clientes</h1>
-    <tr>
-        <th th:text="#{id}">ID</th>
-        <th th:text="#{nombre}">Nombre</th>
-        <th th:text="#{apellido1}">Apellido1</th>
-        <th th:text="#{apellido2}">Apellido2</th>
-        <th th:text="#{ciudad}">Ciudad</th>
-        <th th:text="#{categoria}">Categoria</th>
-        <th>Email</th>
-        <th th:text="#{total}"></th>
-    </tr>
-    <tr th:each="clienteTotal:${listaClientes}">
-        <td th:text="${clienteTotal.getKey().id}">0</td>
-        <td th:text="${clienteTotal.getKey().nombre}">nombre</td>
-        <td th:text="${clienteTotal.getKey().apellido1}">apellido1</td>
-        <td th:text="${clienteTotal.getKey().apellido2 ?: '&nbsp;'}">apellido2</td>
-        <td th:text="${clienteTotal.getKey().ciudad}">ciudad</td>
-        <td th:text="${clienteTotal.getKey().categoria}">categoría</td>
-        <td th:text="${clienteTotal.getKey().email}">email</td>
-        <td th:text="${clienteTotal.getValue()}">tot</td>
-    </tr>
-</table>
+    <div class="container">
+        <div class="row">
+            <div class="col-1" th:text="#{id}">ID</div>
+            <div class="col-1" th:text="#{nombre}">Nombre</div>
+            <div class="col-1" th:text="#{apellido1}">Apellido1</div>
+            <div class="col-1" th:text="#{apellido2}">Apellido2</div>
+            <div class="col-1" th:text="#{ciudad}">Ciudad</div>
+            <div class="col-1" th:text="#{categoria}">Categoria</div>
+            <div class="col-2">Email</div>
+            <div class="col-1" th:text="#{total}"></div>
+        </div>
+        <div class="row" th:each="clienteTotal:${listaClientes}">
+            <div class="col-1" th:text="${clienteTotal.getKey().id}">0</div>
+            <div class="col-1" th:text="${clienteTotal.getKey().nombre}">nombre</div>
+            <div class="col-1" th:text="${clienteTotal.getKey().apellido1}">apellido1</div>
+            <div class="col-1" th:text="${clienteTotal.getKey().apellido2 ?: '&nbsp;'}">apellido2</div>
+            <div class="col-1" th:text="${clienteTotal.getKey().ciudad}">ciudad</div>
+            <div class="col-1" th:text="${clienteTotal.getKey().categoria}">categoría</div>
+            <div class="col-2" th:text="${clienteTotal.getKey().email}">email</div>
+            <div class="col-1" th:text="${clienteTotal.getValue()}">tot</div>
+        </div>
+    </div>
+</div>
 <script src="/js/script.js"></script>
 </body>
 </html>
