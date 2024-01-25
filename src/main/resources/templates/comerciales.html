@@ -26,7 +26,6 @@
         <td th:text="${comercial.apellido1}">apellido1</td>
         <td th:text="${comercial.apellido2 ?: '&nbsp;'}">apellido2</td>
         <td th:text="${comercial.comision}">comision</td>
-
         <td>
             <form th:action="@{/comerciales/__${comercial.id}__}" style="display: inline;">
                 <input class="btn btn-primary" type="submit" th:value="#{boton.detalle}" />
@@ -48,7 +47,7 @@
     </tr>
 </table>
 <!-- Tabla Pedido-->
-<td th:if="${listaPedido}">
+<div th:if="${listaPedido}">
     <h1 th:text="#{pedido.plural}">Pedidos</h1>
     <table>
         <tr>
