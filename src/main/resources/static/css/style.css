@@ -14,6 +14,7 @@ nav {
   width: 100%;
 }
 nav ul {
+  padding: 0;
   list-style: none;
   display: flex;
 }
@@ -33,20 +34,28 @@ nav ul li a:hover {
   background: gray;
 }
 
-.container .row:nth-child(odd) {
+table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+table tr th, table tr td {
+  padding: 20px;
+}
+table tr:nth-child(odd) {
   background-color: beige;
 }
-.container .row.yellow {
+table tr.yellow {
   background-color: yellow;
 }
-.container .row.yellow:hover:after {
+table tr.yellow:hover:after {
   content: "Minimo";
   position: absolute;
 }
-.container .row.green {
+table tr.green {
   background-color: green;
 }
-.container .row.green:hover:after {
+table tr.green:hover:after {
   content: "Maximo";
   position: absolute;
 }

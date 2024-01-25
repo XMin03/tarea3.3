@@ -12,6 +12,7 @@ h1{
 nav{
   width: 100%;
   ul{
+    padding: 0;
     list-style: none;
     display: flex;
     li{
@@ -31,8 +32,14 @@ nav{
     }
   }
 }
-.container{
-  .row{
+table{
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  tr{
+    th,td{
+      padding: 20px;
+    }
     &:nth-child(odd){
       background-color: beige;
     }
