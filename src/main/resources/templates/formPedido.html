@@ -11,33 +11,27 @@
 <form th:action="@{/comerciales/__${id_comercial}__/pedidos/crear}" th:method="post" th:object="${pedido}">
     <input th:type="hidden" th:field="*{id}" />
     <div class="mb-3">
-    <label class="form-label" th:text="#{total}+'*'">Total*: </label>
-    <input class="form-control" th:type="number" step="0.01" th:field="*{total}" />
-    <ul th:if="${#fields.hasErrors('total')}">
-        <li th:each="err : ${#fields.errors('total')}" th:text="${err}" class="error" />
-    </ul>
-      </div>
+        <label class="form-label" th:text="#{total}+'*'">Total*: </label>
+        <input class="form-control" th:type="number" step="0.01" th:field="*{total}" />
+        <p th:errors="*{total}"></p>
+    </div>
     <div class="mb-3">
-    <label class="form-label" th:text="#{fecha}+'*'">Fecha*: </label>
-    <input class="form-control" th:type="date" th:field="*{fecha}" />
-    <ul th:if="${#fields.hasErrors('fecha')}">
-        <li th:each="err : ${#fields.errors('fecha')}" th:text="${err}" class="error" />
-    </ul>
-      </div>
+        <label class="form-label" th:text="#{fecha}+'*'">Fecha*: </label>
+        <input class="form-control" th:type="date" th:field="*{fecha}" />
+        <p th:errors="*{fecha}"></p>
+    </div>
     <div class="mb-3">
-    <label class="form-label" th:text="#{id.cliente}+'*'">Cliente*: </label>
-    <!-- select cliente -->
-    <select  class="js-example-basic-single" th:field="*{id_cliente}">
-        <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
-    </select>
-    <ul th:if="${#fields.hasErrors('id_cliente')}">
-        <li th:each="err : ${#fields.errors('id_cliente')}" th:text="${err}" class="error" />
-    </ul>
-    <!-- id comercial desabilitada -->
-      </div>
+        <label class="form-label" th:text="#{id.cliente}+'*'">Cliente*: </label>
+        <!-- select cliente -->
+        <select  class="js-example-basic-single" th:field="*{id_cliente}">
+            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
+        </select>
+        <p th:errors="*{id_cliente}"></p>
+        <!-- id comercial desabilitada -->
+    </div>
     <div class="mb-3">
-    <label class="form-label" th:text="#{id.comercial}+'*'">id_comercial*: </label>
-    <input class="form-control" th:type="number" th:min="0" th:field="*{id_comercial}" disabled/>
+        <label class="form-label" th:text="#{id.comercial}+'*'">id_comercial*: </label>
+        <input class="form-control" th:type="number" th:min="0" th:field="*{id_comercial}" disabled/>
     </div>
     <input class="btn btn-primary" type="submit" th:value="#{boton.aceptar}">
 </form>
