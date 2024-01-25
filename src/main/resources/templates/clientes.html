@@ -65,6 +65,26 @@
             </td>
         </tr>
     </table>
+<!--table comercial -->
+    <table th:if="${listaComercial}">
+        <h1 th:text="#{comercial.plural}">Comerciales</h1>
+        <!-- header table    -->
+        <tr>
+            <th th:text="#{id}">ID</th>
+            <th th:text="#{trimestre}">trimestre</th>
+            <th th:text="#{semestre}">semestre</th>
+            <th th:text="#{año}">año</th>
+            <th th:text="#{lustro}">lustro</th>
+        </tr>
+        <!-- listAll    -->
+        <tr th:each="cdto:${listaComerciales}">
+            <td th:text="${cdto.id_comercial}">0</td>
+            <td th:text="${cdto.trimestre}">nombre</td>
+            <td th:text="${cdto.semestre ?: '&nbsp;'}">apellido2</td>
+            <td th:text="${cdto.año}">ciudad</td>
+            <td th:text="${cdto.lustro}">categoría</td>
+        </tr>
+    </table>
 <script src="/js/script.js"></script>
 </body>
 </html>

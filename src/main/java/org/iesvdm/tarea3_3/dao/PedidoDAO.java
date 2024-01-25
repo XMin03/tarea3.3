@@ -13,5 +13,6 @@ public interface PedidoDAO extends DAO<Pedido>{
 
     public List<Pedido> getAllByComercial(int id);
     public List<Pedido> getAllByCliente(int id);
+    public List<Pedido> getAllByComercialAndCliente(int id_comercial,int id_cliente);
     public String toName(long id);
 }

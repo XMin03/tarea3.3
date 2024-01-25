@@ -21,6 +21,9 @@ public class PedidoService {
     public List<Pedido> listAllByCliente(int id){
         return pedidoDAO.getAllByCliente(id);
     }
+    public List<Pedido> listAllByComercialAndCliente(int id_comercial,int id_cliente){
+        return pedidoDAO.getAllByComercialAndCliente(id_comercial,id_cliente);
+    }
 
     public Optional<Pedido> findPedido(int id){
         return pedidoDAO.find(id);

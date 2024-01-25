@@ -8,5 +8,5 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ClienteMapper {
-    public ClienteDTO createClienteDTO(int id, List<Pedido> pedidos);
+    public ClienteDTO createClienteDTO(int id,List<Pedido> pedidos);
 }

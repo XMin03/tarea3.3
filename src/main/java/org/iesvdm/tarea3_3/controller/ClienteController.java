@@ -54,9 +54,13 @@ public class ClienteController {
         if (c.isPresent()){
             //y hace los mismo que listar pero con solo ese cliente
             model.addAttribute("listaClientes", c.get());
-
             List<Pedido> p=pedidoService.listAllByCliente(id);
-            List<ClienteDTO> cdto=p.stream().map(pedido->clienteMapper.createClienteDTO(pedido.getId_comercial(),p)).toList();
+            List<ClienteDTO> cdto=p.stream()
+                    .map(Pedido::getId_comercial)
+                    .distinct()
+                    .map(integer -> clienteMapper.createClienteDTO(integer,pedidoService.listAllByComercialAndCliente(integer,id)))
+                    .toList();
+            model.addAttribute("listaComerciales", cdto);
             return "clientes";
         } else {
             //si no encuentra vuelve a la pagina principal que no lo hace
