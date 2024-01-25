@@ -11,37 +11,34 @@
     <div class="mb-3">
         <label class="form-label" th:text="#{nombre}+'*'">Nombre*: </label>
         <input class="form-control" th:type="text" th:field="*{nombre}"/>
-        <p th:errors="*{nombre}"></p>
+        <p class="alert alert-danger" th:errors="*{nombre}"></p>
     </div>
     <div class="mb-3">
         <label class="form-label" th:text="#{apellido1}+'*'">Apellido1*: </label>
         <input class="form-control" th:type="text" th:field="*{apellido1}"/>
-        <p th:errors="*{apellido1}"></p>
+        <p class="alert alert-danger" th:errors="*{apellido1}"></p>
     </div>
-
     <div class="mb-3">
         <label class="form-label" th:text="#{apellido2}">Apellido2: </label>
         <input class="form-control" th:type="text" th:field="*{apellido2}"/>
-        <p th:errors="*{apellido2}"></p>
+        <p class="alert alert-danger" th:errors="*{apellido2}"></p>
     </div>
     <div class="mb-3">
         <label class="form-label" th:text="#{ciudad}+'*'">Ciudad*: </label>
         <input class="form-control" th:type="text" th:field="*{ciudad}"/>
-        <p th:errors="*{ciudad}">
-    </p>
+        <p class="alert alert-danger" th:errors="*{ciudad}"></p>
     </div>
     <div class="mb-3">
         <label class="form-label" th:text="#{categoria}+'*'">Categoría*: </label>
         <input class="form-control" th:type="number" th:field="*{categoria}"/>
-        <p th:errors="*{categoria}"></p>
+        <p class="alert alert-danger" th:errors="*{categoria}"></p>
     </div>
     <div class="mb-3">
         <label>Email: </label>
         <input class="form-control" th:type="text" th:field="*{email}"/>
-        <p th:errors="*{email}"></p>
+        <p class="alert alert-danger" th:errors="*{email}"></p>
     </div>
     <input class="btn btn-primary" type="submit" th:value="#{boton.aceptar}">
 </form>
-
 </body>
 </html>

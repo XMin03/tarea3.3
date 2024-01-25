@@ -11,22 +11,22 @@
     <div class="mb-3">
          <label class="form-label" th:text="#{nombre}+'*'">Nombre*: </label>
         <input class="form-control" th:type="text" th:field="*{nombre}"/>
-        <p th:errors="*{nombre}"></p>
+        <p class="alert alert-danger" th:errors="*{nombre}"></p>
     </div>
     <div class="mb-3">
         <label class="form-label" th:text="#{apellido1}+'*'">Apellido1*: </label>
         <input class="form-control" th:type="text" th:field="*{apellido1}"/>
-        <p th:errors="*{apellido1}"></p>
+        <p class="alert alert-danger" th:errors="*{apellido1}"></p>
     </div>
     <div class="mb-3">
         <label class="form-label" th:text="#{apellido2}">Apellido2: </label>
         <input class="form-control" th:type="text" th:field="*{apellido2}"/>
-        <p th:errors="*{apellido2}"></p>
+        <p class="alert alert-danger" th:errors="*{apellido2}"></p>
     </div>
     <div class="mb-3">
         <label class="form-label" th:text="#{comision}+'*'">Comision*: </label>
         <input class="form-control" th:type="number" th:step="0.001" th:field="*{comision}" />
-        <p th:errors="*{comision}"></p>
+        <p class="alert alert-danger" th:errors="*{comision}"></p>
     </div>
     <input class="btn btn-primary" type="submit" th:value="#{boton.aceptar}">
 </form>
