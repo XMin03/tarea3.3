@@ -1,6 +1,7 @@
 package org.iesvdm.tarea3_3.controller;
 
 import jakarta.validation.Valid;
+import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Pedido;
 import org.iesvdm.tarea3_3.service.ClienteService;
 import org.iesvdm.tarea3_3.service.ComercialService;
@@ -36,27 +37,31 @@ public class PedidoController {
     public String crearPedido(Model model, @PathVariable int id_comercial) {
         Pedido p = new Pedido();
         //ya se sabe de cual comercial es y no se cambia
-        p.setId_comercial(id_comercial);
+        Comercial c=new Comercial();
+        c.setId(id_comercial);
+        p.setComercial(c);
         model.addAttribute("pedido", p);
         //obtiene todos los clientes para el select
         model.addAttribute("clientes",clienteService.listAll());
+        model.addAttribute("comerciales",comercialService.listAll());
+
         return "formPedido";
     }
 
     /**
      * Crea en la base de datos y vuelve a la pagina del comercial que pertenece
-     * @param c
+     * @param p
      * @param id_comercial
      * @return
      */
     @PostMapping("/comerciales/{id_comercial}/pedidos/crear")
-    public String submitCrearPedido(Model model,@Valid @ModelAttribute Pedido c,  BindingResult bindingResult, @PathVariable int id_comercial) {
+    public String submitCrearPedido(Model model,@Valid @ModelAttribute Pedido p,  BindingResult bindingResult, @PathVariable int id_comercial) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("pedido", c);
+            model.addAttribute("pedido", p);
             model.addAttribute("clientes",clienteService.listAll());
             return "formPedido";
         }
-        pedidoService.create(c);
+        pedidoService.create(p);
         return "redirect:/comerciales/"+id_comercial;
     }
 

@@ -17,23 +17,23 @@
     <div class="mb-3">
         <label class="form-label" th:text="#{fecha}+'*'">Fecha*: </label>
         <input class="form-control" th:type="date" th:field="*{fecha}" />
-        <p class="alert alert-danger" th:errors="*{total}"></p>
+        <p class="alert alert-danger" th:errors="*{fecha}"></p>
      </div>
     <div class="mb-3">
         <label class="form-label" th:text="#{cliente}+'*'">Cliente*: </label>
         <!-- select de cliente    -->
-        <select  class="js-example-basic-single" th:field="*{id_cliente}">
+        <select  class="js-example-basic-single" th:field="*{cliente.id}">
             <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
         </select>
-        <p class="alert alert-danger" th:errors="*{total}"></p>
+        <p class="alert alert-danger" th:errors="*{cliente}"></p>
      </div>
     <div class="mb-3">
         <label class="form-label" th:text="#{comercial}+'*'">Comercial*: </label>
         <!-- select de comercial    -->
-        <select  class="js-example-basic-single" th:field="*{id_comercial}">
+        <select  class="js-example-basic-single" th:field="*{comercial.id}">
             <option th:each="comercial : ${comerciales}" th:value="${comercial.id}" th:text="${comercial.nombre}+' '+${comercial.apellido1}"></option>
         </select>
-        <p class="alert alert-danger" th:errors="*{total}"></p>
+        <p class="alert alert-danger" th:errors="*{comercial}"></p>
     </div>
     <input class="btn btn-primary" type="submit" th:value="#{boton.aceptar}">
 </form>

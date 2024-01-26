@@ -26,8 +26,8 @@ public class Tarea33ApplicationTestsPedido {
         Pedido pedido = new Pedido(0
                 , 0
                 ,new Date(0)
-                , 1
-                , 1);
+                , null
+                , null);
         this.pedidoDAOImpl.create(pedido);
         pedido.setTotal(1);
         pedidoDAOImpl.update(pedido);
@@ -42,8 +42,8 @@ public class Tarea33ApplicationTestsPedido {
         Pedido pedido = new Pedido(0
                 , 0
                 ,new Date(0)
-                , 1
-                , 1);
+                , null
+                , null);
         this.pedidoDAOImpl.create(pedido);
         List<Pedido> antes=pedidoDAOImpl.getAll();
         pedidoDAOImpl.delete(pedido.getId());
@@ -55,8 +55,8 @@ public class Tarea33ApplicationTestsPedido {
         Pedido pedido = new Pedido(0
                 , 0
                 ,new Date(0)
-                , 1
-                , 1);
+                , null
+                , null);
         this.pedidoDAOImpl.create(pedido);
         Optional<Pedido> c=pedidoDAOImpl.find(pedido.getId());
         Assertions.assertTrue(c.isPresent()&&c.get().getId()==pedido.getId());

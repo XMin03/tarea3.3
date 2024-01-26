@@ -1,6 +1,7 @@
 package org.iesvdm.tarea3_3.dao;
 
 import lombok.extern.slf4j.Slf4j;
+import org.iesvdm.tarea3_3.model.Cliente;
 import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +34,8 @@ public class PedidoDAOImpl implements PedidoDAO{
                 int idx = 1;
                 ps.setDouble(idx++,pedido.getTotal());
                 ps.setDate(idx++,new Date(pedido.getFecha().getTime()));
-                ps.setInt(idx++,pedido.getId_cliente());
-                ps.setInt(idx,pedido.getId_comercial());
+                ps.setInt(idx++,pedido.getCliente().getId());
+                ps.setInt(idx,pedido.getComercial().getId());
                 return ps;
             },k);
         pedido.setId(k.getKey().intValue());
@@ -41,12 +44,7 @@ public class PedidoDAOImpl implements PedidoDAO{
 
     @Override
     public List<Pedido> getAll() {
-        List<Pedido> p= jdbcTemplate.query("select * from pedido",((rs, rowNum) -> new Pedido(
-                rs.getInt("id"),
-                rs.getDouble("total"),
-                rs.getDate("fecha"),
-                rs.getInt("id_cliente"),
-                rs.getInt("id_comercial"))));
+        List<Pedido> p= jdbcTemplate.query("select * from pedido",(this::obtain));
         log.info("Devueltos {} registros.", p.size());
         return p;
     }
@@ -58,45 +56,25 @@ public class PedidoDAOImpl implements PedidoDAO{
      */
     @Override
     public List<Pedido> getAllByComercial(int id) {
-        List<Pedido> p= jdbcTemplate.query("select * from pedido where id_comercial=?",((rs, rowNum) -> new Pedido(
-                rs.getInt("id"),
-                rs.getDouble("total"),
-                rs.getDate("fecha"),
-                rs.getInt("id_cliente"),
-                rs.getInt("id_comercial"))),id);
+        List<Pedido> p= jdbcTemplate.query("select * from pedido where id_comercial=?",(this::obtain),id);
         log.info("Devueltos {} registros.", p.size());
         return p;
     }
     public List<Pedido> getAllByCliente(int id){
-        List<Pedido> p= jdbcTemplate.query("select * from pedido where id_cliente=?",((rs, rowNum) -> new Pedido(
-                rs.getInt("id"),
-                rs.getDouble("total"),
-                rs.getDate("fecha"),
-                rs.getInt("id_cliente"),
-                rs.getInt("id_comercial"))),id);
+        List<Pedido> p= jdbcTemplate.query("select * from pedido where id_cliente=?",(this::obtain),id);
+
         log.info("Devueltos {} registros.", p.size());
         return p;
     }
     public List<Pedido> getAllByComercialAndCliente(int id_comercial,int id_cliente){
-        List<Pedido> p= jdbcTemplate.query("select * from pedido where id_comercial=? and id_cliente=?",((rs, rowNum) -> new Pedido(
-                rs.getInt("id"),
-                rs.getDouble("total"),
-                rs.getDate("fecha"),
-                rs.getInt("id_cliente"),
-                rs.getInt("id_comercial"))
-                ), id_comercial,id_cliente);
+        List<Pedido> p= jdbcTemplate.query("select * from pedido where id_comercial=? and id_cliente=?",(this::obtain), id_comercial,id_cliente);
         log.info("Devueltos {} registros.", p.size());
         return p;
     }
 
     @Override
     public Optional<Pedido> find(int id) {
-        Pedido p=jdbcTemplate.queryForObject("select * from pedido where id=?",((rs, rowNum) -> new Pedido(
-                rs.getInt("id"),
-                rs.getDouble("total"),
-                rs.getDate("fecha"),
-                rs.getInt("id_cliente"),
-                rs.getInt("id_comercial"))),id);
+        Pedido p=jdbcTemplate.queryForObject("select * from pedido where id=?",(this::obtain),id);
         return p==null?Optional.empty():Optional.of(p);
     }
 
@@ -105,8 +83,8 @@ public class PedidoDAOImpl implements PedidoDAO{
         int rows=jdbcTemplate.update("update pedido set total=?, fecha=?, id_cliente=?,id_comercial=? where id=?",
                 pedido.getTotal(),
                 pedido.getFecha(),
-                pedido.getId_cliente(),
-                pedido.getId_comercial(),
+                pedido.getCliente().getId(),
+                pedido.getComercial().getId(),
                 pedido.getId());
         log.info("Update de Pedido con {} registros actualizados.", rows);
     }
@@ -125,5 +103,28 @@ public class PedidoDAOImpl implements PedidoDAO{
         return jdbcTemplate.queryForObject("Select nombre from cliente where id=?" ,
                 new Object[]{id},
                 String.class);
+    }
+    private Pedido obtain(ResultSet rs, int rows) throws SQLException {
+        return new Pedido(
+                rs.getInt("pedido.id"),
+                rs.getDouble("total"),
+                rs.getDate("fecha"),
+                jdbcTemplate.queryForObject("Select * from cliente where id=?" ,
+                        (rs1, rowNum1) -> new Cliente(rs1.getInt("id"),
+                                rs1.getString("nombre"),
+                                rs1.getString("apellido1"),
+                                rs1.getString("apellido2"),
+                                rs1.getString("ciudad"),
+                                rs1.getInt("categoría"),
+                                rs1.getString("email"))
+                        , rs.getInt("id_cliente")),
+                jdbcTemplate.queryForObject("Select * from comercial where id=?",
+                        ((rs1, rowNum1) -> new Comercial(
+                                rs1.getInt("id"),
+                                rs1.getString("nombre"),
+                                rs1.getString("apellido1"),
+                                rs1.getString("apellido2"),
+                                rs1.getBigDecimal("comisión")
+                        )),rs.getInt("id_comercial")));
     }
 }

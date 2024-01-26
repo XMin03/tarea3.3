@@ -21,12 +21,9 @@ public class Pedido {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date fecha;
 
-    @NotNull(message = "{id.cliente} {no.nulo}.")
-    @Min(value = 1,message = "{minimo} {value}.")
-    int id_cliente;
+    @NotNull(message = "{cliente} {no.nulo}.")
+    Cliente cliente;
 
-    @NotNull(message = "{id.comercial} {no.nulo}.")
-    @Min(value = 1,message = "{minimo} {value}.")
-    int id_comercial;
-
+    @NotNull(message = "{comercial} {no.nulo}.")
+    Comercial comercial;
 }

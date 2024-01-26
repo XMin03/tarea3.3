@@ -15,13 +15,15 @@ import java.util.Map;
 /* NO TIENE NADA A QUE VER CON CLIENTE SI NO LO USA.*/
 public class ClienteDTO {
     public int id_comercial;
+    public String nombre;
     public long lustro;
     public long año;
     public long semestre;
     public long trimestre;
 
-    public ClienteDTO(int id,List<Pedido> pedidos) {
+    public ClienteDTO(int id,String nombre,List<Pedido> pedidos) {
         id_comercial=id;
+        this.nombre= nombre;
         List<LocalDate> fecha=pedidos.stream()
                 .map(Pedido::getFecha)
                 .map(Date::getTime)

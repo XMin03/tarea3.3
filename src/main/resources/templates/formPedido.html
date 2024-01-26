@@ -21,17 +21,21 @@
         <p class="alert alert-danger" th:errors="*{fecha}"></p>
     </div>
     <div class="mb-3">
-        <label class="form-label" th:text="#{id.cliente}+'*'">Cliente*: </label>
+        <label class="form-label" th:text="#{cliente}+'*'">Cliente*: </label>
         <!-- select cliente -->
-        <select  class="js-example-basic-single" th:field="*{id_cliente}">
-            <option th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="${cliente.nombre}+' '+${cliente.apellido1}"></option>
+        <select  class="js-example-basic-single" th:field="*{cliente.id}">
+            <option th:each="c : ${clientes}" th:value="${c.id}" th:text="${c.nombre}+' '+${c.apellido1}"></option>
         </select>
-        <p class="alert alert-danger" th:errors="*{id_cliente}"></p>
+        <p class="alert alert-danger" th:errors="*{cliente}"></p>
         <!-- id comercial desabilitada -->
     </div>
     <div class="mb-3">
-        <label class="form-label" th:text="#{id.comercial}+'*'">id_comercial*: </label>
-        <input class="form-control" th:type="number" th:min="0" th:field="*{id_comercial}" disabled/>
+        <label class="form-label" th:text="#{comercial}+'*'">Comercial*: </label>
+        <!-- select de comercial    -->
+        <select  class="js-example-basic-single" th:field="*{comercial.id}" disabled>
+            <option th:each="c : ${comerciales}" th:value="${c.id}" th:text="${c.nombre}+' '+${c.apellido1}" th:selected="${pedido.comercial.id==c.id?selected:''}" ></option>
+        </select>
+        <p class="alert alert-danger" th:errors="*{comercial}"></p>
     </div>
     <input class="btn btn-primary" type="submit" th:value="#{boton.aceptar}">
 </form>

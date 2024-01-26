@@ -56,9 +56,9 @@ public class ClienteController {
             model.addAttribute("listaClientes", c.get());
             List<Pedido> p=pedidoService.listAllByCliente(id);
             List<ClienteDTO> cdto=p.stream()
-                    .map(Pedido::getId_comercial)
+                    .map(Pedido::getComercial)
                     .distinct()
-                    .map(integer -> clienteMapper.createClienteDTO(integer,pedidoService.listAllByComercialAndCliente(integer,id)))
+                    .map(comercial -> clienteMapper.createClienteDTO(comercial.getId(),comercial.getNombre(),pedidoService.listAllByComercialAndCliente(comercial.getId(),id)))
                     .toList();
             model.addAttribute("listaComerciales", cdto);
             return "clientes";

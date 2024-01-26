@@ -62,14 +62,10 @@ public class ComercialController {
             Comercial c=comercial.get();
             //obtiene todos los pedidos
             List<Pedido> p= pedidoService.listAllByComercial(id);
-            //crea una mapa de pedido y nombre cliente
-            Map<Pedido,String> map=new HashMap<>();
-            //put en la mapa
-            p.stream().forEach(pedido->map.put(pedido, pedidoService.toName(pedido.getId_cliente())));
-            model.addAttribute("listaPedido", map);
+            model.addAttribute("listaPedido", p);
             //<Cliente,Total>
             List<Map.Entry<Cliente,Double>> clientes=p.stream()
-                    .collect(groupingBy(pedido -> clienteService.find(pedido.getId_cliente()).get(), summingDouble(Pedido::getTotal)))
+                    .collect(groupingBy(Pedido::getCliente, summingDouble(Pedido::getTotal)))
                     .entrySet()
                     .stream()
                     .sorted(((o1, o2) -> (int)(o2.getValue()-o1.getValue())))

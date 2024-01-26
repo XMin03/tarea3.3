@@ -53,12 +53,12 @@
                 </form>
             </th>
         </tr>
-        <tr th:each="pedido:${listaPedido.keySet()}" th:class="${listaComerciales.max==pedido.total}?green:(${listaComerciales.min==pedido.total}?yellow:'')">
+        <tr th:each="pedido:${listaPedido}" th:class="${listaComerciales.max==pedido.total}?green:(${listaComerciales.min==pedido.total}?yellow:'')">
             <td th:text="${pedido.id}">0</td>
             <td th:text="${pedido.total}">total</td>
             <td th:text="${pedido.fecha}">fecha</td>
-            <td th:href="@{/clientes/__${pedido.id_cliente}__}" th:text="${listaPedido.get(pedido)}">nombre_cliente</td>
-            <td th:text="${pedido.id_comercial}">id_comercial</td>
+            <td th:href="@{/clientes/__${pedido.cliente.id}__}" th:text="${pedido.cliente.nombre}">nombre_cliente</td>
+            <td th:text="${pedido.comercial.id}">id_comercial</td>
 
             <td>
                 <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/editar/}+${pedido.id}" style="display: inline;">
