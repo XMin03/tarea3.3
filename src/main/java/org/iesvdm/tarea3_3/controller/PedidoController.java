@@ -59,6 +59,7 @@ public class PedidoController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("pedido", p);
             model.addAttribute("clientes",clienteService.listAll());
+            model.addAttribute("comerciales",comercialService.listAll());
             return "formPedido";
         }
         pedidoService.create(p);
