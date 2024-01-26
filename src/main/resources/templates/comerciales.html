@@ -33,16 +33,7 @@
             <form th:action="@{/comerciales/editar/}+${comercial.id}" style="display: inline;">
                 <input class="btn btn-warning" type="submit" th:value="#{boton.editar}" />
             </form>
-            <button type="button" class="btn btn-danger" th:id="comercial+${comercial.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
-            <div th:id="confirmacion-comercial+${comercial.id}" class="confirmacion" style="display: none;">
-                <div class="confirmacion-contenido">
-                    <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
-                    <button class="btn btn-primary" th:id="comercial+${comercial.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
-                    <form th:action="@{/comerciales/borrar/__${comercial.id}__}" method="post" style="display: inline;">
-                        <input class="btn btn-danger" type="submit" th:value="#{boton.confirmar}" />
-                    </form>
-                </div>
-            </div>
+            <th:block th:replace="fragments/general::boton('comercial'+${comercial.id},@{/comerciales/borrar/__${comercial.id}__})"></th:block>
         </td>
     </tr>
 </table>
@@ -73,16 +64,7 @@
                 <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/editar/}+${pedido.id}" style="display: inline;">
                     <input class="btn btn-warning" type="submit" th:value="#{boton.editar}" />
                 </form>
-                <button type="button" class="btn btn-danger" th:id="pedido+${pedido.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
-                <div th:id="confirmacion-pedido+${pedido.id}" class="confirmacion" style="display: none;">
-                    <div class="confirmacion-contenido">
-                        <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
-                        <button class="btn btn-primary" th:id="pedido+${pedido.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
-                        <form th:action="@{/comerciales/__${listaComerciales.id}__/pedidos/borrar/__${pedido.id}__}" method="post" style="display: inline;">
-                            <input class="btn btn-danger" type="submit" th:value="#{boton.confirmar}" />
-                        </form>
-                    </div>
-                </div>
+                <th:block th:replace="fragments/general::boton('pedido'+${pedido.id},@{/comerciales/__${listaComerciales.id}__/pedidos/borrar/__${pedido.id}__})"></th:block>
             </td>
         </tr>
         <tr>
@@ -117,6 +99,6 @@
         </tr>
     </table>
 </div>
-<script src="/js/script.js"></script>
+<script src="/js/borrar.js"></script>
 </body>
 </html>

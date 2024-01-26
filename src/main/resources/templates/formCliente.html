@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:insert="fragments/general.html :: form">
+<head th:insert="fragments/general.html :: formulario">
     <title th:text="#{cliente}">Cliente</title>
 </head>
 <body>
+
 <h1 th:text="#{'boton.'+${action}}+' '+#{cliente} ">Title</h1>
 <!-- formulario de cliente usado para editar y crear según la accion que llega   -->
 <form th:action="@{/clientes/__${action}__}" th:method="post" th:object="${cliente}">

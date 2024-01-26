@@ -44,17 +44,7 @@
                 <input class="btn btn-warning" type="submit" th:value="#{boton.editar}" />
             </form>
             <!-- borrar    -->
-            <!-- boton para mostrar el div a seguida    -->
-            <button type="button" class="btn btn-danger" th:id="cliente+${cliente.id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
-            <div  th:id="confirmacion-cliente+${cliente.id}" class="confirmacion" style="display: none;">
-                <div class="confirmacion-contenido">
-                    <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
-                    <button class="btn btn-primary" th:id="cliente+${cliente.id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
-                    <form th:action="@{/clientes/borrar/__${cliente.id}__}" method="post" style="display: inline;">
-                        <input class="btn btn-danger" type="submit" th:value="#{boton.confirmar}" />
-                    </form>
-                </div>
-            </div>
+            <th:block th:replace="fragments/general::boton('cliente'+${cliente.id},@{/clientes/borrar/__${cliente.id}__})"></th:block>
         </td>
     </tr>
 </table>
@@ -80,6 +70,6 @@
         </tr>
     </table>
 </div>
-<script src="/js/script.js"></script>
+<script src="/js/borrar.js"></script>
 </body>
 </html>
