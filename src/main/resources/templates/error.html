@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="fragments/general.html :: style">
+    <title>Error</title>
+</head>
+<body>
+    <nav th:insert="fragments/general::nav"></nav>
+    <h1 th:text="${number}"></h1>
+    <p th:text="${error}"></p>
+</body>
+</html>
