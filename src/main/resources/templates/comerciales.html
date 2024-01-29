@@ -4,9 +4,11 @@
     <title th:text="#{comercial.plural}">Comerciales</title>
 </head>
 <body>
+<!-- nav    -->
 <nav th:insert="fragments/general.html :: nav"></nav>
-<!-- Tabla comercial-->
+<!-- titulo    -->
 <h1 th:text="#{comercial.plural}">Comercial</h1>
+<!-- Tabla CRUD igual que cliente pero para comercial-->
 <table>
     <tr>
         <th th:text="#{id}">ID</th>
@@ -37,7 +39,7 @@
         </td>
     </tr>
 </table>
-<!-- Tabla Pedido-->
+<!-- Tabla CRUD Pedido para detalle igual que cliente pero para pedido y sin detalle pero con tot y media -->
 <div th:if="${listaPedido}">
     <h1 th:text="#{pedido.plural}">Pedidos</h1>
     <table>
@@ -67,6 +69,7 @@
                 <th:block th:replace="fragments/general::boton('pedido'+${pedido.id},@{/comerciales/__${listaComerciales.id}__/pedidos/borrar/__${pedido.id}__})"></th:block>
             </td>
         </tr>
+        <!-- Tot Y Media -->
         <tr>
             <td th:text="'TOT: '+${listaComerciales.tot}">tot</td>
             <td th:text="#{media}+': '+${listaComerciales.media}">media</td>
@@ -74,7 +77,7 @@
     </table>
 </div>
 <div th:if="${listaClientes}">
-    <!-- Tabla Cliente-->
+    <!-- Tabla Cliente para detalle -->
     <h1 th:text="#{cliente.plural}">Clientes</h1>
     <table>
         <tr>

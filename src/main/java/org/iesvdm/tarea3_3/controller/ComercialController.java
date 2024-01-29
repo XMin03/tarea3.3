@@ -6,7 +6,6 @@ import org.iesvdm.tarea3_3.model.Comercial;
 import org.iesvdm.tarea3_3.model.Pedido;
 import org.iesvdm.tarea3_3.model.dto.ComercialDTO;
 import org.iesvdm.tarea3_3.model.mapstruct.ComercialMapper;
-import org.iesvdm.tarea3_3.service.ClienteService;
 import org.iesvdm.tarea3_3.service.ComercialService;
 import org.iesvdm.tarea3_3.service.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -33,8 +30,6 @@ public class ComercialController {
     private ComercialService comercialService;
     @Autowired
     private PedidoService pedidoService;
-    @Autowired
-    private ClienteService clienteService;
     @Autowired
     private ComercialMapper comercialMapper;
     /**
@@ -50,13 +45,14 @@ public class ComercialController {
     }
 
     /**
-     * los mismo que listar pero muestra solo uno y muestra sus pedidos
+     * Muestra solo los datos de un solo comercial y algunos detalles más
      * @param model
      * @param id
      * @return
      */
     @GetMapping("/comerciales/{id}")
     public String detalle(Model model,@PathVariable int id){
+        //obtiene el comercial que se quiere ver los detalles
         Optional<Comercial> comercial=comercialService.find(id);
         if (comercial.isPresent()){
             Comercial c=comercial.get();
@@ -65,10 +61,10 @@ public class ComercialController {
             model.addAttribute("listaPedido", p);
             //<Cliente,Total>
             List<Map.Entry<Cliente,Double>> clientes=p.stream()
-                    .collect(groupingBy(Pedido::getCliente, summingDouble(Pedido::getTotal)))
+                    .collect(groupingBy(Pedido::getCliente, summingDouble(Pedido::getTotal)))//obtener <Cliente,Total>
                     .entrySet()
                     .stream()
-                    .sorted(((o1, o2) -> (int)(o2.getValue()-o1.getValue())))
+                    .sorted(((o1, o2) -> (int)(o2.getValue()-o1.getValue())))//ordenar segun el total
                     .toList();
             model.addAttribute("listaClientes", clientes);
             //ComercialDTO
@@ -94,12 +90,15 @@ public class ComercialController {
     }
 
     /**
-     * Crea en la base de datos y vuelve al index
+     * Comprueba los errores y crea en la base de datos y vuelve al index
+     * @param model
      * @param c
+     * @param bindingResult
      * @return
      */
     @PostMapping("/comerciales/crear")
     public String submitCrear(Model model,@Valid @ModelAttribute Comercial c,BindingResult bindingResult) {
+        //lo mismo que el de cliente pero para comercial
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "crear");
             model.addAttribute("comercial", c);
@@ -128,13 +127,15 @@ public class ComercialController {
     }
 
     /**
-     * Actualiza en la base de dato y vuelve al index
+     * Comprueba los errores y actualiza en la base de datos y vuelve al index
      * @param model
      * @param c
+     * @param bindingResult
      * @return
      */
     @PostMapping("/comerciales/editar")
     public String submitEditar(Model model, @Valid @ModelAttribute Comercial c, BindingResult bindingResult){
+        //lo mismo que el de cliente pero para comercial
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "editar");
             model.addAttribute("comercial", c);

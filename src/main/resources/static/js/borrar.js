@@ -1,3 +1,4 @@
+/*js para confirmacion de borrar*/
 function mostrarConfirmacion(button) {
     document.getElementById("confirmacion-"+button.id).style.display = "flex";
 }

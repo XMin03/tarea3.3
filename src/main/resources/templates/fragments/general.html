@@ -24,7 +24,7 @@
         <li><a href="/comerciales" th:text="#{comercial.plural}">comerciales</a></li>
     </ul>
 </nav>
-
+<!-- fragment del boton borrar     -->
 <th:block th:fragment="boton(id,action)">
     <button type="button" class="btn btn-danger" th:id="${id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
     <div th:id="'confirmacion-'+${id}" class="confirmacion" style="display: none;">

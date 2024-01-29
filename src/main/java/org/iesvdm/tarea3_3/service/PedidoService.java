@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class PedidoService {
-    /*igual que los otros dos*/
+    /*igual que los otros dos solo que ese tiene algunas funciones más*/
     @Autowired
     private PedidoDAO pedidoDAO;
     public void create(Pedido p){
@@ -33,8 +33,5 @@ public class PedidoService {
     }
     public void update(Pedido p) {
         pedidoDAO.update(p);
-    }
-    public String toName(long id){;
-        return pedidoDAO.toName(id);
     }
 }

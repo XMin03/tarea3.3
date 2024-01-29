@@ -20,7 +20,7 @@ import java.util.Optional;
 @Slf4j
 @Repository
 public class PedidoDAOImpl implements PedidoDAO{
-    /*           IGUALES QUE LAS OTRAS DOS CON DOS FUNCIONES MAS                  */
+    /*           IGUALES QUE LAS OTRAS DOS CON ALGUNAS FUNCIONES MAS                  */
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Override
@@ -60,12 +60,25 @@ public class PedidoDAOImpl implements PedidoDAO{
         log.info("Devueltos {} registros.", p.size());
         return p;
     }
+
+    /**
+     * obtiene todos los pedidos segun la id del cliente
+     * @param id
+     * @return
+     */
     public List<Pedido> getAllByCliente(int id){
         List<Pedido> p= jdbcTemplate.query("select * from pedido where id_cliente=?",(this::obtain),id);
 
         log.info("Devueltos {} registros.", p.size());
         return p;
     }
+
+    /**
+     * obtiene todos los pedidos segun las id de comercial y cliente
+     * @param id_comercial
+     * @param id_cliente
+     * @return
+     */
     public List<Pedido> getAllByComercialAndCliente(int id_comercial,int id_cliente){
         List<Pedido> p= jdbcTemplate.query("select * from pedido where id_comercial=? and id_cliente=?",(this::obtain), id_comercial,id_cliente);
         log.info("Devueltos {} registros.", p.size());
@@ -94,16 +107,13 @@ public class PedidoDAOImpl implements PedidoDAO{
         int rows=jdbcTemplate.update("delete from pedido where id=?", id);
         log.info("Delete de Pedido con {} registros actualizados.", rows);
     }
+
     /**
-     * devuelve el nombre del cliente segun la id
-     * @param id  id del cliente
+     * La funcion para crear el objeto pedido
+     * @param rs
      * @return
+     * @throws SQLException
      */
-    public String toName(long id){
-        return jdbcTemplate.queryForObject("Select nombre from cliente where id=?" ,
-                new Object[]{id},
-                String.class);
-    }
     private Pedido obtain(ResultSet rs, int rows) throws SQLException {
         return new Pedido(
                 rs.getInt("pedido.id"),

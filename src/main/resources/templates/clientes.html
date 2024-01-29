@@ -8,6 +8,7 @@
 <nav th:insert="fragments/general.html::nav"></nav>
 <!-- titulo    -->
 <h1 th:text="#{cliente.plural}">Clientes</h1>
+<!-- Table CRUD    -->
 <table>
     <tr>
         <th th:text="#{id}">ID</th>
@@ -48,11 +49,10 @@
         </td>
     </tr>
 </table>
-<!--table comercial -->
+<!--table comercial(clienteDTO) para detalles-->
 <div th:if="${listaComerciales}">
     <h1 th:text="#{comercial.plural}">Comerciales</h1>
     <table>
-        <!-- header table    -->
         <tr>
             <th th:text="#{id}">ID</th>
             <th th:text="#{nombre}">nombre</th>
@@ -61,7 +61,6 @@
             <th th:text="#{año}">año</th>
             <th th:text="#{lustro}">lustro</th>
         </tr>
-        <!-- listAll    -->
         <tr th:each="cdto:${listaComerciales}">
             <td th:text="${cdto.id_comercial}">0</td>
             <td th:text="${cdto.nombre}">nombre</td>

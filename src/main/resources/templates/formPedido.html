@@ -7,7 +7,7 @@
 </head>
 <body>
 <h1 th:text="#{'boton.'+${action}}+' '+#{pedido}">Crear Pedido</h1>
-<!-- formulario de pedido para crear -->
+<!-- formulario de pedido usado para editar y crear según la accion que llega   -->
 <form th:action="@{/comerciales/__${id_comercial}__/pedidos/__${action}__}" th:method="post" th:object="${pedido}">
     <input th:type="hidden" th:field="*{id}" />
     <div class="mb-3">

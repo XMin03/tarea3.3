@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ComercialMapper {
-
+    /*no muy necesario en ese caso*/
     public ComercialDTO comercialAComercialDTO(Comercial comercial, List<Pedido> pedidos);
     public Comercial comercialDTOAComercial(ComercialDTO comercial);
 

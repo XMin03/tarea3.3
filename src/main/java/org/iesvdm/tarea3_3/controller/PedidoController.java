@@ -34,14 +34,15 @@ public class PedidoController {
      * @return
      */
     @GetMapping("/comerciales/{id_comercial}/pedidos/crear")
-    public String crearPedido(Model model, @PathVariable int id_comercial) {
+    public String crear(Model model, @PathVariable int id_comercial) {
         Pedido p = new Pedido();
-        //ya se sabe de cual comercial es y no se cambia
+        //Se pone ese comercial por defecto.
         Comercial c=new Comercial();
         c.setId(id_comercial);
         p.setComercial(c);
+
         model.addAttribute("pedido", p);
-        //obtiene todos los clientes para el select
+        //obtiene todos los clientes y comerciales para el select
         model.addAttribute("clientes",clienteService.listAll());
         model.addAttribute("comerciales",comercialService.listAll());
         model.addAttribute("action", "crear");
@@ -50,13 +51,16 @@ public class PedidoController {
     }
 
     /**
-     * Crea en la base de datos y vuelve a la pagina del comercial que pertenece
+     * Comprueba los errores y crea en la base de datos y vuelve a la pagina del comercial que pertenece
+     * @param model
      * @param p
+     * @param bindingResult
      * @param id_comercial
      * @return
      */
     @PostMapping("/comerciales/{id_comercial}/pedidos/crear")
-    public String submitCrearPedido(Model model,@Valid @ModelAttribute Pedido p,  BindingResult bindingResult, @PathVariable int id_comercial) {
+    public String submitCrear(Model model,@Valid @ModelAttribute Pedido p,  BindingResult bindingResult, @PathVariable int id_comercial) {
+        //lo mismo que cliente pero para pedidos
         if (bindingResult.hasErrors()) {
             model.addAttribute("pedido", p);
             model.addAttribute("clientes",clienteService.listAll());
@@ -77,7 +81,7 @@ public class PedidoController {
      * @return
      */
     @GetMapping("/comerciales/{id_comercial}/pedidos/editar/{id}")
-    public String editarPedido(Model model,@PathVariable int id_comercial, @PathVariable int id){
+    public String editar(Model model,@PathVariable int id_comercial, @PathVariable int id){
         Optional<Pedido> p=pedidoService.findPedido(id);
         if (p.isPresent()){
             model.addAttribute("pedido", p.get());
@@ -93,20 +97,21 @@ public class PedidoController {
     }
 
     /**
-     * Actualiza en la base de dato y vuelve al comercial padre
+     * Comprueba los errores y actualiza en la base de dato y vuelve al comercial padre
      * @param model
-     * @param id_comercial
      * @param p
+     * @param bindingResult
+     * @param id_comercial
      * @return
      */
     @PostMapping("/comerciales/{id_comercial}/pedidos/editar")
-    public String submitEditarPedido(Model model, @Valid @ModelAttribute Pedido p, BindingResult bindingResult, @PathVariable int id_comercial){
+    public String submitEditar(Model model, @Valid @ModelAttribute Pedido p, BindingResult bindingResult, @PathVariable int id_comercial){
+        //lo mismo que cliente pero para pedido
         if (bindingResult.hasErrors()) {
             model.addAttribute("pedido", p);
             model.addAttribute("clientes",clienteService.listAll());
             model.addAttribute("comerciales",comercialService.listAll());
             model.addAttribute("action", "editar");
-
             return "formPedido";
         }
         pedidoService.update(p);

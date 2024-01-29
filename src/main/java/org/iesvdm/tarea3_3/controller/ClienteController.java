@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import org.iesvdm.tarea3_3.model.Cliente;
 import org.iesvdm.tarea3_3.model.Pedido;
 import org.iesvdm.tarea3_3.model.dto.ClienteDTO;
-import org.iesvdm.tarea3_3.model.dto.ComercialDTO;
 import org.iesvdm.tarea3_3.model.mapstruct.ClienteMapper;
 import org.iesvdm.tarea3_3.service.ClienteService;
 import org.iesvdm.tarea3_3.service.PedidoService;
@@ -42,7 +41,7 @@ public class ClienteController {
     }
 
     /**
-     * los mismo que listar pero muestra solo un cliente
+     * muestra un solo cliente en la pagina de cliente mostrando tambien los clienteDTO(id y nombre de comercial y año lustro semestre trimestre)
      * @param model
      * @param id
      * @return
@@ -52,47 +51,51 @@ public class ClienteController {
         //obtiene el cliente
         Optional<Cliente> c=clienteService.find(id);
         if (c.isPresent()){
-            //y hace los mismo que listar pero con solo ese cliente
+            //almacena el cliente
             model.addAttribute("listaClientes", c.get());
-            List<Pedido> p=pedidoService.listAllByCliente(id);
-            List<ClienteDTO> cdto=p.stream()
-                    .map(Pedido::getComercial)
-                    .distinct()
-                    .map(comercial -> clienteMapper.createClienteDTO(comercial.getId(),comercial.getNombre(),pedidoService.listAllByComercialAndCliente(comercial.getId(),id)))
-                    .toList();
+            List<ClienteDTO> cdto=pedidoService.listAllByCliente(id)//obtiene todos los pedidos de ese cliente
+                    .stream()
+                    .map(Pedido::getComercial)//obtiene los comerciales
+                    .distinct()//quitar los repetidos
+                    .map(comercial -> clienteMapper.createClienteDTO(//los convierte en clienteDTO
+                            comercial.getId(),
+                            comercial.getNombre(),
+                            pedidoService.listAllByComercialAndCliente(comercial.getId(),id))//obtiene la lista de ese comercial y cliente
+                    ).toList();
             model.addAttribute("listaComerciales", cdto);
             return "clientes";
         } else {
-            //si no encuentra vuelve a la pagina principal que no lo hace
+            //si no encuentra vuelve a la pagina principal que no lo hace porque hay un error y lo lleva a la pagina de error
             return listar(model);
         }
     }
 
     /**
-     * va a la pagina para crea un cliente
+     * va a la pagina para crea un cliente con un cliente vacio
      * @param model
      * @return
      */
     @GetMapping("/clientes/crear")
     public String crear(Model model) {
-        //cliente vacio
-        Cliente c = new Cliente();
         //dice la accion porque formCliente es sea para crear que para editar
         model.addAttribute("action", "crear");
-        //paso el cliente vacio
-        model.addAttribute("cliente", c);
+        //paso un cliente vacio
+        model.addAttribute("cliente", new Cliente());
         //va al formulario de cliente
         return "formCliente";
     }
-
     /**
-     * Crea en la base de datos y vuelve al index
+     * Comprueba los errores y crea en la base de datos y vuelve al index
+     * @param model
      * @param c
+     * @param bindingResult
      * @return
      */
     @PostMapping("/clientes/crear")
     public String submitCrear(Model model, @Valid @ModelAttribute Cliente c, BindingResult bindingResult) {
+        //comprueba si hay errores
         if (bindingResult.hasErrors()){
+            //vuelve a hacer crear.
             model.addAttribute("action", "crear");
             model.addAttribute("cliente", c);
             return "formCliente";
@@ -123,13 +126,15 @@ public class ClienteController {
     }
 
     /**
-     * Actualiza en la base de dato y vuelve al index
+     * Comprueba los errores y actualiza en la base de datos y vuelve al index
      * @param model
      * @param c
+     * @param bindingResult
      * @return
      */
     @PostMapping("/clientes/editar")
     public String submitEditar(Model model, @Valid @ModelAttribute Cliente c, BindingResult bindingResult){
+        //lo mismo que el de crear pero para editar
         if (bindingResult.hasErrors()) {
             model.addAttribute("action", "editar");
             model.addAttribute("cliente", c);
