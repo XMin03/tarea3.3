@@ -44,6 +44,7 @@ public class PedidoController {
         //obtiene todos los clientes para el select
         model.addAttribute("clientes",clienteService.listAll());
         model.addAttribute("comerciales",comercialService.listAll());
+        model.addAttribute("action", "crear");
 
         return "formPedido";
     }
@@ -60,6 +61,8 @@ public class PedidoController {
             model.addAttribute("pedido", p);
             model.addAttribute("clientes",clienteService.listAll());
             model.addAttribute("comerciales",comercialService.listAll());
+            model.addAttribute("action", "crear");
+
             return "formPedido";
         }
         pedidoService.create(p);
@@ -81,7 +84,9 @@ public class PedidoController {
             //obtiene todos los clientes y comerciales para los selects
             model.addAttribute("clientes",clienteService.listAll());
             model.addAttribute("comerciales",comercialService.listAll());
-            return "editarPedido";
+            model.addAttribute("action", "editar");
+
+            return "formPedido";
         } else {
             return "redirect:/comerciales/"+id_comercial;
         }
@@ -100,7 +105,9 @@ public class PedidoController {
             model.addAttribute("pedido", p);
             model.addAttribute("clientes",clienteService.listAll());
             model.addAttribute("comerciales",comercialService.listAll());
-            return "editarPedido";
+            model.addAttribute("action", "editar");
+
+            return "formPedido";
         }
         pedidoService.update(p);
         return "redirect:/comerciales/"+id_comercial;
