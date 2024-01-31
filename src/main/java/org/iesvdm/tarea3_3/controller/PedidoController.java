@@ -85,7 +85,6 @@ public class PedidoController {
         Optional<Pedido> p=pedidoService.findPedido(id);
         if (p.isPresent()){
             model.addAttribute("pedido", p.get());
-            //obtiene todos los clientes y comerciales para los selects
             model.addAttribute("clientes",clienteService.listAll());
             model.addAttribute("comerciales",comercialService.listAll());
             model.addAttribute("action", "editar");

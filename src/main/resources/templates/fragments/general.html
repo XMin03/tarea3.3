@@ -30,13 +30,13 @@
 </nav>
 <!-- fragment del boton borrar     -->
 <th:block th:fragment="boton(id,action)">
-    <button type="button" class="btn btn-danger" th:id="${id}" onclick="mostrarConfirmacion(this)" th:text="#{boton.borrar}">Eliminar</button>
+    <button type="button" class="btn btn-danger" th:id="${id}" onclick="mostrarConfirmacion(this)" th:text="Borrar">Eliminar</button>
     <div th:id="'confirmacion-'+${id}" class="confirmacion" style="display: none;">
         <div class="confirmacion-contenido">
-            <p th:text="#{confirmacion}">Seguro que quieres borrar?</p>
-            <button class="btn btn-primary" th:id="${id}" onclick="cerrarConfirmacion(this)" th:text="#{boton.cancelar}">Cancelar</button>
+            <p>Seguro que quieres borrar?</p>
+            <button class="btn btn-primary" th:id="${id}" onclick="cerrarConfirmacion(this)" th:text="Cancelar">Cancelar</button>
             <form th:action="${action}" method="post" style="display: inline;">
-                <input class="btn btn-danger" type="submit" th:value="#{boton.confirmar}" />
+                <input class="btn btn-danger" type="submit" th:value="Confirmar" />
             </form>
         </div>
     </div>
